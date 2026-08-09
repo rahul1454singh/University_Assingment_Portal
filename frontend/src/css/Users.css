@@ -1,0 +1,15 @@
+/* ==========================================
+   USERS MANAGEMENT STYLING
+   ========================================== */
+
+.users-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user-name-text {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}

@@ -1,0 +1,143 @@
+.assignment-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.assignment-modal {
+  background: #ffffff;
+  width: 90%;
+  max-width: 550px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.assignment-modal-header {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  padding: 18px 24px;
+  color: #ffffff;
+}
+
+.assignment-modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.assignment-modal-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed #f1f5f9;
+  padding-bottom: 10px;
+}
+
+.detail-row span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-row p {
+  margin: 0;
+  font-size: 14px;
+  color: #1e293b;
+  font-weight: 600;
+  text-align: right;
+}
+
+.modal-status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.modal-status-badge.approved {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.modal-status-badge.rejected {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.modal-status-badge.draft,
+.modal-status-badge.submitted,
+.modal-status-badge.pending {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.modal-category-badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background-color: #f1f5f9;
+  color: #334155;
+  display: inline-block;
+}
+
+.pdf-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.view-pdf-btn {
+  background: #3b82f6;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.assignment-modal-footer {
+  padding: 14px 24px;
+  background: #f8fafc;
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid #e2e8f0;
+}
+
+.modal-ok-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.modal-ok-btn:hover {
+  background: #2563eb;
+}

@@ -1,0 +1,600 @@
+/* ================================
+   ADMIN DASHBOARD MAIN
+================================ */
+
+.admin-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f4f6fb;
+    font-family: Arial, sans-serif;
+}
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+/* ================================
+   NAVBAR
+================================ */
+
+.admin-navbar {
+    height: 70px;
+    background: #0f172a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.2px;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 15px;
+}
+
+.greeting-text {
+    color: #f1f5f9;
+    font-weight: 500;
+}
+
+.greeting-text strong {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    text-transform: uppercase;
+}
+
+.navbar-contact-admin-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.navbar-contact-admin-btn:hover {
+    background: #25d366;
+    border-color: #25d366;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* Hamburger */
+
+.menu-toggle {
+    cursor: pointer;
+}
+
+.bars span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: white;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+/* ================================
+   WRAPPER
+================================ */
+
+.dashboard-wrapper {
+    display: flex;
+    flex: 1;
+    min-height: calc(100vh - 70px);
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+
+.sidebar {
+    width: 260px;
+    background: white;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.06);
+    padding: 24px 16px;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar-menu-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sidebar-group-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-left: 12px;
+}
+
+.sidebar-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 11px 15px;
+    color: #334155;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sidebar a:hover {
+    background: #f1f5f9;
+    color: #1e3a8a;
+}
+
+.sidebar a.active {
+    background: #243b6b;
+    color: white;
+}
+
+.contact-admin-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.contact-admin-btn:hover {
+    background: #25d366;
+    color: #ffffff;
+    border-color: #25d366;
+    transform: translateY(-1px);
+}
+
+.sidebar-logout-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* Logout button: Default state (neutral / non-red), hover state (red) */
+.logout-btn {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    background: #f8fafc;
+    color: #475569;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.logout-btn:hover {
+    background: #ef4444;
+    color: white;
+    border-color: #ef4444;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+/* ================================
+   ADMIN DASHBOARD PAGE & CARDS
+================================ */
+
+.admin-dashboard-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.admin-dashboard-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+.overview-cards-grid,
+.overview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.admin-card,
+.card {
+    border-radius: 14px;
+    padding: 22px 20px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.admin-card:hover,
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+    font-size: 32px;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.65);
+    flex-shrink: 0;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content h3,
+.card h3 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.card-number,
+.card p {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.departments-card,
+.departments {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    color: #0369a1;
+    border-color: #7dd3fc;
+}
+
+.users-card,
+.users {
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    color: #15803d;
+    border-color: #86efac;
+}
+
+.students-card,
+.students {
+    background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+    color: #6b21a8;
+    border-color: #d8b4fe;
+}
+
+.professors-card,
+.professors {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #b45309;
+    border-color: #fcd34d;
+}
+
+
+
+
+
+/* ================================
+   ACTIVITY SECTION
+================================ */
+
+
+.content-box {
+
+    background:white;
+
+    margin-top:35px;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+}
+
+
+
+.content-box h2 {
+
+    margin-bottom:20px;
+
+}
+
+
+
+.activity-item {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px 0;
+
+    border-bottom:1px solid #eee;
+
+    color:#444;
+
+}
+
+
+
+.activity-item:last-child {
+
+    border-bottom:none;
+
+}
+
+
+
+.dot {
+
+    height:10px;
+
+    width:10px;
+
+    background:#4b6cb7;
+
+    display:inline-block;
+
+    border-radius:50%;
+
+    margin-right:10px;
+
+}
+
+
+
+
+
+
+/* ================================
+   FOOTER
+================================ */
+
+
+.admin-footer {
+
+    background:#243b6b;
+
+    color:white;
+
+    padding:20px 30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+
+
+
+
+
+
+/* ================================
+   LOGOUT MODAL
+================================ */
+
+
+.modal-overlay {
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.5);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+.modal-box {
+
+    background:white;
+
+    padding:30px;
+
+    width:350px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+}
+
+
+
+.modal-box h2 {
+
+    margin-bottom:10px;
+
+}
+
+
+
+.modal-buttons {
+
+    margin-top:25px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+}
+
+
+
+.modal-buttons button {
+
+    padding:10px 25px;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+
+
+.no-btn {
+
+    background:#ccc;
+
+}
+
+
+
+.yes-btn {
+
+    background:#e74c3c;
+
+    color:white;
+
+}
+
+
+
+
+
+
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+
+@media(max-width:900px){
+
+
+.sidebar {
+
+    position:fixed;
+
+    left:-300px;
+
+    top:70px;
+
+    height:100%;
+
+    z-index:10;
+
+}
+
+
+
+.sidebar.show {
+
+    left:0;
+
+}
+
+
+
+@media (max-width: 1024px) {
+  .overview-cards-grid,
+  .overview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .overview-cards-grid,
+  .overview {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-navbar {
+    padding: 0 15px;
+  }
+
+  .navbar-title {
+    font-size: 16px;
+  }
+
+  .admin-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

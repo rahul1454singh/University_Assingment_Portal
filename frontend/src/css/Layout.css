@@ -1,0 +1,75 @@
+/* ==========================================
+   APP LAYOUT CONTAINER STYLING (FIXED FOOTER & SIDEBAR)
+   ========================================== */
+
+.layout-root {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+
+.layout-body {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 64px);
+  margin-top: 64px; /* Fixed navbar height offset */
+  position: relative;
+  overflow: hidden;
+}
+
+.layout-main {
+  flex: 1;
+  margin-left: 260px; /* Sidebar default expanded width */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: margin-left var(--transition-slow);
+}
+
+.layout-main.collapsed-main {
+  margin-left: 72px; /* Sidebar collapsed width */
+}
+
+/* ONLY the main content container scrolls */
+.main-content-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 36px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Fixed footer at bottom of main panel */
+.app-footer {
+  height: 48px;
+  padding: 0 32px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 850;
+  box-sizing: border-box;
+}
+
+.footer-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+@media (max-width: 992px) {
+  .layout-main, .layout-main.collapsed-main {
+    margin-left: 0;
+  }
+  .main-content-container {
+    padding: 20px 16px;
+  }
+}

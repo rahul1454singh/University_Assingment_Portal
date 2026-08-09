@@ -1,0 +1,107 @@
+.student-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 24px;
+  max-width: 1100px;
+}
+
+.student-cards-grid .card {
+  border-radius: 14px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.student-cards-grid .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-icon {
+  font-size: 20px;
+}
+
+.card-top h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.student-cards-grid .card h2 {
+  margin: 14px 0 0 0;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Distinct professional background colors matching Professor dashboard */
+.draft-card {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  color: #0369a1;
+  border-color: #7dd3fc;
+}
+
+.submitted-card {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #b45309;
+  border-color: #fcd34d;
+}
+
+.approved-card {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #15803d;
+  border-color: #86efac;
+}
+
+.rejected-card {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+@media (max-width: 1024px) {
+  .student-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .student-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .student-cards-grid .card {
+    padding: 14px 12px;
+    border-radius: 10px;
+  }
+
+  .card-top {
+    gap: 6px;
+  }
+
+  .card-icon {
+    font-size: 16px;
+  }
+
+  .card-top h3 {
+    font-size: 13px;
+  }
+
+  .student-cards-grid .card h2 {
+    margin: 10px 0 0 0;
+    font-size: 22px;
+  }
+}

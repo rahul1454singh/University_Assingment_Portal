@@ -1,0 +1,753 @@
+/* ===========================================================
+   STUDENT EDIT ASSIGNMENT
+   PART 1
+=========================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.upload-assignment-container{
+    width:100%;
+    max-width:1120px;
+    margin:10px auto;
+    padding:0 18px;
+    animation:fadeIn .35s ease;
+}
+
+.upload-header{
+    text-align:center;
+    margin-bottom:14px;
+}
+
+.upload-header h1{
+    font-size:30px;
+    font-weight:700;
+    color:#2563eb;
+    letter-spacing:.2px;
+    margin-bottom:4px;
+    line-height:1.2;
+}
+
+.upload-header p{
+    font-size:13px;
+    color:#64748b;
+    line-height:1.4;
+}
+
+.upload-card{
+    background:#fff;
+    border:1px solid #e6edf8;
+    border-radius:16px;
+    padding:18px 22px;
+    box-shadow:
+        0 10px 30px rgba(15,23,42,.05),
+        0 2px 8px rgba(15,23,42,.04);
+}
+
+.upload-form{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+/* ===========================================================
+   FORM
+=========================================================== */
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.form-group label{
+    font-size:13px;
+    font-weight:600;
+    color:#334155;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    height:42px;
+    border:1px solid #dbe6f5;
+    border-radius:8px;
+    background:#fff;
+    padding:0 14px;
+    font-size:14px;
+    color:#1e293b;
+    transition:.25s;
+}
+
+.form-group textarea{
+    height:74px;
+    min-height:74px;
+    resize:none;
+    padding:10px 14px;
+    line-height:1.45;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+    color:#94a3b8;
+}
+
+.form-group input:hover,
+.form-group textarea:hover,
+.form-group select:hover{
+    border-color:#93c5fd;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    outline:none;
+    border-color:#2563eb;
+    box-shadow:0 0 0 3px rgba(37,99,235,.10);
+}
+
+/* ===========================================================
+   PDF SECTION
+=========================================================== */
+
+.pdf-section{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    align-items:stretch;
+}
+
+.pdf-panel{
+    display:flex;
+    flex-direction:column;
+}
+
+.section-label{
+    text-align:center;
+    font-size:12px;
+    font-weight:700;
+    color:#475569;
+    margin-bottom:6px;
+    text-transform:none;
+}
+
+.current-pdf-card,
+.upload-box{
+    height:150px;
+    min-height:150px;
+    border-radius:12px;
+}
+
+/* ===========================================================
+   CURRENT PDF CARD
+=========================================================== */
+
+.current-pdf-card{
+    background:#f8fbff;
+    border:1px solid #dbeafe;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:12px;
+    transition:.25s;
+}
+
+.current-pdf-card:hover{
+    border-color:#2563eb;
+    box-shadow:0 8px 20px rgba(37,99,235,.08);
+}
+
+.pdf-info{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    gap:8px;
+}
+
+.pdf-icon-wrapper{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:#eef4ff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.pdf-icon{
+    font-size:24px;
+    color:#dc2626;
+}
+
+.pdf-details{
+    width:100%;
+}
+
+.pdf-details h4{
+    font-size:13px;
+    font-weight:600;
+    color:#1e293b;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.pdf-details span{
+    display:block;
+    margin-top:3px;
+    font-size:11px;
+    color:#64748b;
+}
+/* ===========================================================
+   PART 2
+   CONTINUE FROM PART 1
+=========================================================== */
+
+.view-pdf-btn{
+    margin-top:10px;
+    width:120px;
+    height:34px;
+    border-radius:8px;
+    background:#2563eb;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:600;
+    transition:.25s ease;
+}
+
+.view-pdf-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+.view-pdf-btn i{
+    font-size:11px;
+}
+
+/* ===========================================================
+   REPLACE PDF BOX
+=========================================================== */
+
+.upload-box{
+    position:relative;
+    border:2px dashed #bfd8ff;
+    background:#fbfdff;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:14px;
+    cursor:pointer;
+    overflow:hidden;
+    transition:.25s ease;
+}
+
+.upload-box::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        135deg,
+        rgba(37,99,235,.04),
+        rgba(37,99,235,.01)
+    );
+    opacity:0;
+    transition:.25s;
+}
+
+.upload-box:hover{
+    border-color:#2563eb;
+    background:#f6faff;
+    box-shadow:0 8px 20px rgba(37,99,235,.08);
+}
+
+.upload-box:hover::before{
+    opacity:1;
+}
+
+.upload-box>*{
+    position:relative;
+    z-index:2;
+}
+
+.upload-icon{
+    font-size:34px;
+    color:#2563eb;
+    margin-bottom:8px;
+    animation:floating 3s ease-in-out infinite;
+}
+
+.upload-box h3{
+    font-size:15px;
+    font-weight:700;
+    color:#1e293b;
+    margin-bottom:4px;
+}
+
+.upload-box p{
+    font-size:11px;
+    color:#64748b;
+    line-height:1.35;
+    max-width:190px;
+    margin-bottom:5px;
+}
+
+.upload-box span{
+    font-size:10px;
+    color:#94a3b8;
+    font-weight:500;
+}
+
+.pdf-selected{
+    color:#16a34a;
+}
+
+.selected-file-name{
+    width:100%;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.selected-file-size{
+    font-size:12px !important;
+    color:#16a34a !important;
+    font-weight:700;
+}
+
+input[type=file]{
+    display:none;
+}
+
+/* ===========================================================
+   BUTTONS
+=========================================================== */
+
+.upload-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:2px;
+    padding-top:12px;
+    border-top:1px solid #edf2f7;
+}
+
+.primary-btn,
+.secondary-btn{
+    flex:1;
+    height:42px;
+    border-radius:8px;
+    border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.primary-btn{
+    background:#2563eb;
+    color:#fff;
+    box-shadow:0 6px 16px rgba(37,99,235,.20);
+}
+
+.primary-btn:hover:not(:disabled){
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+
+.primary-btn:disabled{
+    opacity:.75;
+    cursor:not-allowed;
+}
+
+.secondary-btn{
+    background:#fff;
+    color:#2563eb;
+    border:1px solid #c8dcff;
+}
+
+.secondary-btn:hover{
+    background:#eef5ff;
+    border-color:#2563eb;
+    transform:translateY(-2px);
+}
+
+/* ===========================================================
+   PART 3
+   CONTINUE FROM PART 2
+=========================================================== */
+
+/* ===========================================================
+   LOADING
+=========================================================== */
+
+.edit-loading{
+    width:100%;
+    min-height:65vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:14px;
+}
+
+.edit-loading i{
+    font-size:42px;
+    color:#2563eb;
+}
+
+.edit-loading span{
+    font-size:16px;
+    font-weight:600;
+    color:#334155;
+}
+
+/* ===========================================================
+   SCROLLBAR
+=========================================================== */
+
+textarea::-webkit-scrollbar{
+    width:6px;
+}
+
+textarea::-webkit-scrollbar-track{
+    background:#edf2f7;
+    border-radius:20px;
+}
+
+textarea::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:20px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover{
+    background:#94a3b8;
+}
+
+/* ===========================================================
+   INPUT STATES
+=========================================================== */
+
+input:disabled,
+textarea:disabled,
+select:disabled{
+    background:#f8fafc;
+    cursor:not-allowed;
+}
+
+/* ===========================================================
+   ANIMATIONS
+=========================================================== */
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(14px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+@keyframes floating{
+
+    0%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-4px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
+
+}
+
+/* ===========================================================
+   LARGE TABLETS
+=========================================================== */
+
+@media (max-width:1200px){
+
+    .upload-assignment-container{
+        max-width:100%;
+        padding:0 18px;
+    }
+
+    .upload-card{
+        padding:18px;
+    }
+
+    .pdf-section{
+        gap:12px;
+    }
+
+}
+
+/* ===========================================================
+   TABLETS
+=========================================================== */
+
+@media (max-width:992px){
+
+    .upload-header h1{
+        font-size:28px;
+    }
+
+    .upload-card{
+        padding:18px;
+    }
+
+    .upload-form{
+        gap:14px;
+    }
+
+    .pdf-section{
+        grid-template-columns:1fr;
+        gap:14px;
+    }
+
+    .current-pdf-card,
+    .upload-box{
+        height:150px;
+        min-height:150px;
+    }
+
+    .upload-actions{
+        gap:10px;
+    }
+
+}
+
+/* ===========================================================
+   PART 4
+   CONTINUE FROM PART 3
+=========================================================== */
+
+/* ===========================================================
+   SMALL TABLETS
+=========================================================== */
+
+@media (max-width:768px){
+
+    .upload-assignment-container{
+        margin:14px auto;
+        padding:0 14px;
+    }
+
+    .upload-header{
+        margin-bottom:12px;
+    }
+
+    .upload-header h1{
+        font-size:25px;
+    }
+
+    .upload-header p{
+        font-size:13px;
+        line-height:1.4;
+    }
+
+    .upload-card{
+        padding:16px;
+        border-radius:14px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select{
+        font-size:14px;
+    }
+
+    .form-group textarea{
+        height:72px;
+        min-height:72px;
+    }
+
+    .current-pdf-card,
+    .upload-box{
+        height:145px;
+        min-height:145px;
+    }
+
+    .pdf-icon-wrapper{
+        width:46px;
+        height:46px;
+    }
+
+    .pdf-icon{
+        font-size:22px;
+    }
+
+    .upload-icon{
+        font-size:30px;
+    }
+
+    .upload-box h3{
+        font-size:14px;
+    }
+
+    .upload-box p{
+        font-size:11px;
+    }
+
+    .upload-box span{
+        font-size:10px;
+    }
+
+    .view-pdf-btn{
+        width:100%;
+        max-width:170px;
+    }
+
+    .upload-actions{
+        flex-direction:column-reverse;
+    }
+
+    .primary-btn,
+    .secondary-btn{
+        width:100%;
+    }
+
+}
+
+/* ===========================================================
+   MOBILE
+=========================================================== */
+
+@media (max-width:576px){
+
+    .upload-assignment-container{
+        padding:0 12px;
+    }
+
+    .upload-header h1{
+        font-size:22px;
+    }
+
+    .upload-header p{
+        font-size:12px;
+    }
+
+    .upload-card{
+        padding:14px;
+        border-radius:12px;
+    }
+
+    .upload-form{
+        gap:12px;
+    }
+
+    .section-label{
+        font-size:12px;
+    }
+
+    .current-pdf-card,
+    .upload-box{
+        height:140px;
+        min-height:140px;
+    }
+
+    .pdf-details h4{
+        font-size:12px;
+    }
+
+    .pdf-details span{
+        font-size:10px;
+    }
+
+    .primary-btn,
+    .secondary-btn{
+        height:40px;
+        font-size:13px;
+    }
+
+}
+
+/* ===========================================================
+   EXTRA SMALL DEVICES
+=========================================================== */
+
+@media (max-width:420px){
+
+    .upload-assignment-container{
+        padding:0 10px;
+    }
+
+    .upload-header h1{
+        font-size:20px;
+    }
+
+    .upload-card{
+        padding:12px;
+        border-radius:10px;
+    }
+
+    .current-pdf-card,
+    .upload-box{
+        height:135px;
+        min-height:135px;
+    }
+
+    .pdf-icon-wrapper{
+        width:42px;
+        height:42px;
+    }
+
+    .pdf-icon{
+        font-size:20px;
+    }
+
+    .upload-icon{
+        font-size:26px;
+    }
+
+    .upload-box h3{
+        font-size:13px;
+    }
+
+    .upload-box p{
+        font-size:10px;
+    }
+
+    .upload-box span{
+        font-size:9px;
+    }
+
+    .view-pdf-btn{
+        height:32px;
+        font-size:11px;
+    }
+
+    .primary-btn,
+    .secondary-btn{
+        height:38px;
+        font-size:12px;
+    }
+
+}

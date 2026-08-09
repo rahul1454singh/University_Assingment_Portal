@@ -1,0 +1,98 @@
+.professor-reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reviews-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.table-responsive-box {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
+}
+
+/* Give "My Reviews" table header a professional blue background */
+.professor-reviews-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.professor-reviews-table th {
+  background: linear-gradient(135deg, #1e3c72, #2a5298) !important; /* Professional blue background */
+  color: #ffffff !important;
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.professor-reviews-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.category-badge {
+  background: #f1f5f9;
+  color: #475569;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.description-cell {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.review-btn {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.review-btn:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+.no-reviews {
+  text-align: center;
+  padding: 40px !important;
+  color: #94a3b8;
+}
+
+.date-time-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.date-line {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 13px;
+}
+
+.time-line {
+  font-size: 12px;
+  color: #64748b;
+}

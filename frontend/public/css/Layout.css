@@ -1,0 +1,72 @@
+.layout-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafc;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: #1e293b;
+}
+
+.layout-body {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  position: relative;
+}
+
+.layout-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 70px);
+  background-color: #f8fafc;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.main-content-container {
+  flex: 1;
+  padding: 32px 36px;
+  max-width: 1400px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.app-footer {
+  padding: 20px 36px;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e3c72;
+  margin-top: auto;
+  text-align: center;
+}
+
+.footer-title {
+  color: #1e3c72;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+@media (max-width: 768px) {
+  .layout-main {
+    min-height: calc(100vh - 60px);
+  }
+
+  .main-content-container {
+    padding: 20px 16px;
+  }
+
+  .app-footer {
+    padding: 16px;
+    justify-content: center;
+    text-align: center;
+  }
+}

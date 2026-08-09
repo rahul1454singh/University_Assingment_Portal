@@ -1,0 +1,101 @@
+/* ==========================================
+   PROFESSOR DASHBOARD STYLING
+   ========================================== */
+
+.professor-dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.prof-welcome-banner {
+  background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+  color: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 20px rgba(13, 148, 136, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-badge-prof {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.professor-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.prof-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pending-icon {
+  background-color: var(--warning-50);
+  color: var(--warning-600);
+}
+
+.approved-icon {
+  background-color: var(--success-50);
+  color: var(--success-600);
+}
+
+.rejected-icon {
+  background-color: var(--danger-50);
+  color: var(--danger-600);
+}
+
+.total-icon {
+  background-color: var(--prof-accent-subtle);
+  color: var(--prof-accent);
+}
+
+.prof-number {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-top: 4px;
+}
+
+.card-sub-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.chart-title-icon-prof {
+  color: var(--prof-accent);
+}
+
+.professor-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 60px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+}

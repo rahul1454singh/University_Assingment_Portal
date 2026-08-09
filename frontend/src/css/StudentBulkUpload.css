@@ -1,0 +1,48 @@
+/* ==========================================
+   BULK UPLOAD STYLING & FILE CHIPS
+   ========================================== */
+
+@import "./StudentUploadAssignment.css";
+
+.bulk-file-list-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+}
+
+.bulk-file-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+}
+
+.chip-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.chip-size {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.chip-remove {
+  background: none;
+  border: none;
+  color: var(--danger-500);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+.chip-remove:hover {
+  color: var(--danger-600);
+}

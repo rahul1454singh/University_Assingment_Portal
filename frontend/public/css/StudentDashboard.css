@@ -1,0 +1,50 @@
+.student-dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.student-dashboard-heading {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a; /* Clearly visible heading */
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+/* Status styling pills */
+.status-draft {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.status-submitted {
+  background: #fef3c7;
+  color: #b45309;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.status-approved {
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.status-rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}

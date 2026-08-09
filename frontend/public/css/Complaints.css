@@ -1,0 +1,136 @@
+.complaints-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.complaints-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.complaints-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.complaints-count-tag {
+  background: #e0f2fe;
+  color: #0284c7;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.table-responsive-wrapper {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
+}
+
+.admin-complaints-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-complaints-table th {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #ffffff;
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.admin-complaints-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  color: #334155;
+  vertical-align: top;
+}
+
+.sender-name-text {
+  display: block;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.sender-role-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.email-cell {
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.message-content-cell {
+  max-width: 380px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.date-time-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.date-line {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.time-line {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.table-empty-cell {
+  text-align: center;
+  padding: 40px !important;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+.status-select {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid #cbd5e1;
+  outline: none;
+  cursor: pointer;
+}
+
+.status-select.status-pending {
+  background: #fef3c7;
+  color: #b45309;
+  border-color: #fcd34d;
+}
+
+.status-select.status-read {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: #7dd3fc;
+}
+
+.status-select.status-resolved {
+  background: #dcfce7;
+  color: #15803d;
+  border-color: #86efac;
+}

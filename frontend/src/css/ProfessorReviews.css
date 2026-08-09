@@ -1,0 +1,9 @@
+/* ==========================================
+   PROFESSOR REVIEWS & EVALUATION STYLING
+   ========================================== */
+
+.professor-reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

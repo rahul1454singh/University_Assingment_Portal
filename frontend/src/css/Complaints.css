@@ -1,0 +1,41 @@
+/* ==========================================
+   COMPLAINTS MANAGEMENT STYLING
+   ========================================== */
+
+.complaints-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.message-content-cell {
+  max-width: 360px;
+}
+
+.message-box-bubble {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13.5px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.select-status-pending {
+  border-color: var(--warning-500) !important;
+  color: var(--warning-600) !important;
+  background-color: var(--warning-50) !important;
+}
+
+.select-status-read {
+  border-color: var(--info-500) !important;
+  color: var(--info-600) !important;
+  background-color: var(--info-50) !important;
+}
+
+.select-status-resolved {
+  border-color: var(--success-500) !important;
+  color: var(--success-700) !important;
+  background-color: var(--success-50) !important;
+}

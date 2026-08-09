@@ -1,0 +1,173 @@
+.professor-dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.professor-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.professor-subtitle {
+  font-size: 15px;
+  color: #64748b;
+  margin: 0;
+}
+
+.professor-subtitle strong {
+  color: #1e3c72;
+}
+
+.professor-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.prof-card {
+  border-radius: 14px;
+  padding: 22px 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.prof-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.prof-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.prof-number {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.pending-card {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  color: #0369a1;
+  border-color: #7dd3fc;
+}
+
+.approved-card {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #15803d;
+  border-color: #86efac;
+}
+
+.rejected-card {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+
+.total-card {
+  background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+  color: #6b21a8;
+  border-color: #d8b4fe;
+}
+
+.recent-activity-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e3c72; /* High contrast, clearly visible heading */
+  margin: 0 0 16px 0;
+}
+
+.table-responsive-box {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
+}
+
+.professor-dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.professor-dashboard-table th {
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* Professional blue background */
+  color: #ffffff;
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.professor-dashboard-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.empty-cell {
+  text-align: center;
+  padding: 30px !important;
+  color: #94a3b8;
+}
+
+.status-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.status-approved {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-rejected {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-pending, .status-draft {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.date-time-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.date-line {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 13px;
+}
+
+.time-line {
+  font-size: 12px;
+  color: #64748b;
+}
+
+@media (max-width: 1024px) {
+  .professor-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .professor-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
