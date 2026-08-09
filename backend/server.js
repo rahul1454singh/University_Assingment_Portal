@@ -50,10 +50,15 @@ const Admin = require("./models/Admin");
     const app = express();
     const server = http.createServer(app);
 
+    const allowedOrigins = [
+      "https://university-assingment-portal-wbxg.vercel.app",
+      "http://localhost:5173"
+    ];
+
     // Initialize Socket.IO with CORS
     const io = new Server(server, {
       cors: {
-        origin: "https://university-assingment-portal-wbxg.vercel.app",
+        origin: allowedOrigins,
         credentials: true
       }
     });
@@ -65,7 +70,7 @@ const Admin = require("./models/Admin");
     
     app.use(
       cors({
-        origin: "https://university-assingment-portal-wbxg.vercel.app",
+        origin: allowedOrigins,
         credentials: true
       })
     );
