@@ -52,6 +52,7 @@ const Admin = require("./models/Admin");
 
     const allowedOrigins = [
       "https://university-assingment-portal-wbxg.vercel.app",
+      "https://assignmentportal2026.vercel.app",
       "http://localhost:5173"
     ];
 
