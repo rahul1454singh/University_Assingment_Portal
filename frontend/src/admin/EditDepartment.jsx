@@ -90,13 +90,6 @@ const EditDepartment = () => {
                 <h2 className="card-title">Edit Department</h2>
               </div>
             </div>
-            <button
-              className="btn btn-sm btn-outline"
-              onClick={() => navigate("/admin/departments")}
-            >
-              <ArrowLeft size={16} />
-              <span>Back to Directory</span>
-            </button>
           </div>
 
           <div className="card-body">
