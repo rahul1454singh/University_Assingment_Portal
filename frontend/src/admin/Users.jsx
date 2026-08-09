@@ -12,10 +12,17 @@ const DepartmentCell = ({ departments }) => {
 
   if (!departments || departments.length === 0) return <span>-</span>;
 
+  // Safely extract the name even if the backend failed to populate the array (returns string IDs)
+  const getDeptName = (dep) => {
+    if (!dep) return "-";
+    if (typeof dep === "object" && dep.name) return dep.name;
+    return "Unknown Dept (Unpopulated)";
+  };
+
   if (departments.length === 1) {
     return (
       <span className="badge badge-neutral" style={{ fontSize: '11px', whiteSpace: 'nowrap' }}>
-        {departments[0].name || departments[0]}
+        {getDeptName(departments[0])}
       </span>
     );
   }
@@ -24,7 +31,7 @@ const DepartmentCell = ({ departments }) => {
     <div style={{ position: 'relative', display: 'inline-block' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'nowrap' }}>
         <span className="badge badge-neutral" style={{ fontSize: '11px', whiteSpace: 'nowrap', maxWidth: '140px', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block' }}>
-          {departments[0].name || departments[0]}
+          {getDeptName(departments[0])}
         </span>
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -70,7 +77,7 @@ const DepartmentCell = ({ departments }) => {
           </div>
           {departments.slice(1).map((dep, idx) => (
             <span key={idx} className="badge badge-neutral" style={{ fontSize: '11px', whiteSpace: 'normal', textAlign: 'left', lineHeight: '1.4' }}>
-              {dep.name || dep}
+              {getDeptName(dep)}
             </span>
           ))}
         </div>
