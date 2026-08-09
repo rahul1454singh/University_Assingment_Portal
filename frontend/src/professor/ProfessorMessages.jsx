@@ -24,7 +24,7 @@ const ProfessorMessages = () => {
   useEffect(() => {
     fetchCurrentUser();
 
-    const socket = io(import.meta.env.VITE_BACKEND_URL || "http://localhost:3000", {
+    const socket = io("https://university-assingment-portal-irjm.vercel.app", {
       withCredentials: true,
       transports: ["websocket", "polling"]
     });
