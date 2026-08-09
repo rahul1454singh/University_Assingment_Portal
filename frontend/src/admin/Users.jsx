@@ -7,6 +7,78 @@ import LogoutModal from "../components/LogoutModal";
 import { Plus, Search, Pencil, Trash2, Users as UsersIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import "../css/Users.css";
 
+const DepartmentCell = ({ departments }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  if (!departments || departments.length === 0) return <span>-</span>;
+
+  if (departments.length === 1) {
+    return (
+      <span className="badge badge-neutral" style={{ fontSize: '11px', whiteSpace: 'nowrap' }}>
+        {departments[0].name || departments[0]}
+      </span>
+    );
+  }
+
+  return (
+    <div style={{ position: 'relative', display: 'inline-block' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'nowrap' }}>
+        <span className="badge badge-neutral" style={{ fontSize: '11px', whiteSpace: 'nowrap', maxWidth: '140px', overflow: 'hidden', textOverflow: 'ellipsis', display: 'inline-block' }}>
+          {departments[0].name || departments[0]}
+        </span>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          title="View all departments"
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#2563eb',
+            fontSize: '11px',
+            cursor: 'pointer',
+            padding: '2px 4px',
+            fontWeight: '600',
+            whiteSpace: 'nowrap',
+            borderRadius: '4px'
+          }}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#eff6ff'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+        >
+          +{departments.length - 1} more {isOpen ? '▴' : '▾'}
+        </button>
+      </div>
+
+      {isOpen && (
+        <div style={{
+          position: 'absolute',
+          top: '100%',
+          left: 0,
+          marginTop: '6px',
+          backgroundColor: '#ffffff',
+          border: '1px solid #e2e8f0',
+          borderRadius: '8px',
+          boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
+          padding: '10px',
+          zIndex: 9999,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '6px',
+          minWidth: '220px',
+          maxWidth: '300px'
+        }}>
+          <div style={{ fontSize: '11px', fontWeight: 'bold', color: '#64748b', paddingBottom: '4px', borderBottom: '1px solid #f1f5f9' }}>
+            Enrolled Departments
+          </div>
+          {departments.slice(1).map((dep, idx) => (
+            <span key={idx} className="badge badge-neutral" style={{ fontSize: '11px', whiteSpace: 'normal', textAlign: 'left', lineHeight: '1.4' }}>
+              {dep.name || dep}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -143,7 +215,15 @@ const Users = () => {
                     </td>
                     <td>{user.email}</td>
                     <td>{user.phone || "-"}</td>
-                    <td>{user.department?.name || "-"}</td>
+                    <td>
+                      <DepartmentCell departments={
+                        user.departments && user.departments.length > 0 
+                          ? user.departments 
+                          : user.department?.name 
+                            ? [user.department] 
+                            : []
+                      } />
+                    </td>
                     <td>
                       <span className={`badge ${getRoleBadgeClass(user.role)}`}>
                         {user.role}
