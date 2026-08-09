@@ -127,7 +127,8 @@ router.post("/login", async (req, res) => {
 
         httpOnly:true,
 
-        sameSite:"lax"
+        sameSite:"none",
+        secure: true
 
       });
 
@@ -203,7 +204,8 @@ router.post("/login", async (req, res) => {
 
         httpOnly:true,
 
-        sameSite:"lax"
+        sameSite:"none",
+        secure: true
 
       });
 
@@ -266,7 +268,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout",(req,res)=>{
 
-  res.clearCookie("token");
+  res.clearCookie("token", { httpOnly: true, sameSite: "none", secure: true });
 
   return res.json({
 
@@ -279,7 +281,7 @@ router.post("/logout",(req,res)=>{
 
 router.get("/logout",(req,res)=>{
 
-  res.clearCookie("token");
+  res.clearCookie("token", { httpOnly: true, sameSite: "none", secure: true });
 
   return res.redirect("/login");
 
