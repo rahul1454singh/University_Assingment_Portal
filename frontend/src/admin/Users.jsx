@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import api from "../services/api";
 import AdminLayout from "./AdminLayout";
@@ -7,8 +8,11 @@ import LogoutModal from "../components/LogoutModal";
 import { Plus, Search, Pencil, Trash2, Users as UsersIcon, ChevronLeft, ChevronRight } from "lucide-react";
 import "../css/Users.css";
 
-const DepartmentCell = ({ departments }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const DepartmentCell = ({ departments, userId, openPopoverId, setOpenPopoverId }) => {
+  const isOpen = openPopoverId === userId;
+  const buttonRef = useRef(null);
+  const popoverRef = useRef(null);
+  const [popoverStyle, setPopoverStyle] = useState({});
 
   if (!departments || departments.length === 0) return <span>-</span>;
 
@@ -27,6 +31,75 @@ const DepartmentCell = ({ departments }) => {
     );
   }
 
+  // Calculate and update position smartly
+  useEffect(() => {
+    if (!isOpen) return;
+    const updatePosition = () => {
+      if (!buttonRef.current) return;
+      const btnRect = buttonRef.current.getBoundingClientRect();
+      const estimatedHeight = Math.min(departments.length * 28 + 40, 250);
+      const spaceBelow = window.innerHeight - btnRect.bottom;
+      const spaceAbove = btnRect.top;
+      
+      let top;
+      let bottom = 'auto';
+      
+      if (spaceBelow < estimatedHeight && spaceAbove > spaceBelow) {
+        bottom = (window.innerHeight - btnRect.top) + 6;
+        top = 'auto';
+      } else {
+        top = btnRect.bottom + 6;
+      }
+      
+      let left = btnRect.left;
+      let right = 'auto';
+      if (left + 260 > window.innerWidth - 20) {
+        left = 'auto';
+        right = 20;
+      }
+      
+      setPopoverStyle({ top, bottom, left, right });
+    };
+
+    updatePosition();
+    window.addEventListener("scroll", updatePosition, true);
+    window.addEventListener("resize", updatePosition);
+    return () => {
+      window.removeEventListener("scroll", updatePosition, true);
+      window.removeEventListener("resize", updatePosition);
+    };
+  }, [isOpen, departments.length]);
+
+  // Handle clicking outside or pressing Escape
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e) => {
+      if (
+        popoverRef.current && 
+        !popoverRef.current.contains(e.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target)
+      ) {
+        setOpenPopoverId(null);
+      }
+    };
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') setOpenPopoverId(null);
+    };
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen, setOpenPopoverId]);
+
+  const handleToggle = (e) => {
+    e.stopPropagation();
+    setOpenPopoverId(isOpen ? null : userId);
+  };
+
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'nowrap' }}>
@@ -34,7 +107,8 @@ const DepartmentCell = ({ departments }) => {
           {getDeptName(departments[0])}
         </span>
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          ref={buttonRef}
+          onClick={handleToggle}
           title="View all departments"
           style={{
             background: 'none',
@@ -54,25 +128,27 @@ const DepartmentCell = ({ departments }) => {
         </button>
       </div>
 
-      {isOpen && (
-        <div style={{
-          position: 'absolute',
-          top: '100%',
-          left: 0,
-          marginTop: '6px',
-          backgroundColor: '#ffffff',
-          border: '1px solid #e2e8f0',
-          borderRadius: '8px',
-          boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)',
-          padding: '10px',
-          zIndex: 9999,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '6px',
-          minWidth: '220px',
-          maxWidth: '300px'
-        }}>
-          <div style={{ fontSize: '11px', fontWeight: 'bold', color: '#64748b', paddingBottom: '4px', borderBottom: '1px solid #f1f5f9' }}>
+      {isOpen && createPortal(
+        <div 
+          ref={popoverRef}
+          style={{
+            position: 'fixed',
+            ...popoverStyle,
+            backgroundColor: '#ffffff',
+            border: '1px solid #e2e8f0',
+            borderRadius: '8px',
+            boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
+            padding: '12px',
+            zIndex: 99999,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+            width: '260px',
+            maxHeight: '250px',
+            overflowY: 'auto'
+          }}
+        >
+          <div style={{ fontSize: '12px', fontWeight: '600', color: '#475569', paddingBottom: '6px', borderBottom: '1px solid #f1f5f9', marginBottom: '2px' }}>
             Enrolled Departments
           </div>
           {departments.slice(1).map((dep, idx) => (
@@ -80,13 +156,15 @@ const DepartmentCell = ({ departments }) => {
               {getDeptName(dep)}
             </span>
           ))}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
 };
 
 const Users = () => {
+  const [openPopoverId, setOpenPopoverId] = useState(null);
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [search, setSearch] = useState("");
@@ -223,13 +301,18 @@ const Users = () => {
                     <td>{user.email}</td>
                     <td>{user.phone || "-"}</td>
                     <td>
-                      <DepartmentCell departments={
-                        user.departments && user.departments.length > 0 
-                          ? user.departments 
-                          : user.department?.name 
-                            ? [user.department] 
-                            : []
-                      } />
+                      <DepartmentCell 
+                        userId={user._id}
+                        openPopoverId={openPopoverId}
+                        setOpenPopoverId={setOpenPopoverId}
+                        departments={
+                          user.departments && user.departments.length > 0 
+                            ? user.departments 
+                            : user.department?.name 
+                              ? [user.department] 
+                              : []
+                        } 
+                      />
                     </td>
                     <td>
                       <span className={`badge ${getRoleBadgeClass(user.role)}`}>
