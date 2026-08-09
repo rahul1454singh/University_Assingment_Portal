@@ -24,7 +24,7 @@ const StudentMessages = () => {
   useEffect(() => {
     fetchCurrentUser();
 
-    const socket = io("http://localhost:3000", {
+    const socket = io(import.meta.env.VITE_BACKEND_URL || "http://localhost:3000", {
       withCredentials: true,
       transports: ["websocket", "polling"]
     });
