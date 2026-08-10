@@ -4,6 +4,8 @@ import api from "../services/api";
 import AdminLayout from "./AdminLayout";
 import toast from "react-hot-toast";
 import { User, ArrowLeft, Eye, EyeOff, Lock, Mail, Phone, Building2 } from "lucide-react";
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 import "../css/CreateUser.css";
 
 const CreateUser = () => {
@@ -136,17 +138,15 @@ const CreateUser = () => {
 
                 <div className="form-group">
                   <label className="form-label">Phone Number</label>
-                  <div className="input-icon-wrapper">
-                    <Phone size={18} className="input-icon" />
-                    <input
-                      type="text"
-                      name="phone"
-                      className="form-input"
-                      placeholder="e.g. +1 555-0192"
-                      value={form.phone}
-                      onChange={handleChange}
-                    />
-                  </div>
+                  <PhoneInput
+                    international
+                    defaultCountry="NP"
+                    name="phone"
+                    className="form-input phone-input-override"
+                    placeholder="e.g. +977 9812345678"
+                    value={form.phone}
+                    onChange={(value) => setForm({ ...form, phone: value || "" })}
+                  />
                 </div>
 
                 <div className="form-group">

@@ -54,6 +54,13 @@ router.post("/admin/users", verifyAdmin, async (req, res) => {
       });
     }
 
+    if (phone && !/^(\+[1-9]\d{4,14}|\d{5,15})$/.test(phone.replace(/[\s\-()]/g, ''))) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid phone number format. Must be a valid international number.",
+      });
+    }
+
     const existingUser = await UserData.findOne({ email });
 
     if (existingUser) {
@@ -256,6 +263,13 @@ router.put("/admin/users/:id", verifyAdmin, async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "User not found",
+      });
+    }
+
+    if (phone && !/^(\+[1-9]\d{4,14}|\d{5,15})$/.test(phone.replace(/[\s\-()]/g, ''))) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid phone number format. Must be a valid international number.",
       });
     }
 
