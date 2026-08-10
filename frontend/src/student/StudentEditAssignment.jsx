@@ -16,6 +16,13 @@ const StudentEditAssignment = () => {
   const [professors, setProfessors] = useState([]);
   const [currentPdf, setCurrentPdf] = useState(null);
   const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -86,6 +93,8 @@ const StudentEditAssignment = () => {
     }
 
     setFile(selectedFile);
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    setPreviewUrl(URL.createObjectURL(selectedFile));
   };
 
   const handleSubmit = async (e) => {
@@ -180,13 +189,6 @@ const StudentEditAssignment = () => {
                 <p className="card-subtitle">Update assignment details or replace submission file</p>
               </div>
             </div>
-            <button
-              className="btn btn-sm btn-outline"
-              onClick={() => navigate("/student/assignments")}
-            >
-              <ArrowLeft size={16} />
-              <span>Back to List</span>
-            </button>
           </div>
 
           <div className="card-body">
@@ -265,19 +267,28 @@ const StudentEditAssignment = () => {
 
                 <div className="replace-pdf-panel">
                   <label className="form-label">Replace PDF (Optional)</label>
-                  <label htmlFor="assignmentPdf" className="dropzone-box" style={{ padding: "20px" }}>
-                    {!file ? (
+                  {!file ? (
+                    <label htmlFor="assignmentPdf" className="dropzone-box" style={{ padding: "20px", display: "block", cursor: "pointer", height: "100%", minHeight: "135px" }}>
                       <div className="dropzone-empty-content">
                         <UploadCloud size={24} color="#2563eb" />
                         <span className="dropzone-title" style={{ fontSize: "13px" }}>Select New PDF</span>
                       </div>
-                    ) : (
-                      <div style={{ textAlign: "center" }}>
-                        <span style={{ fontSize: "13px", fontWeight: 700, display: "block" }}>{file.name}</span>
-                        <span style={{ fontSize: "11px", color: "var(--text-muted)" }}>Click to change file</span>
+                    </label>
+                  ) : (
+                    <div className="pdf-info-card" style={{ padding: "16px", background: "var(--bg-subtle)", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)", textAlign: "center", height: "100%", minHeight: "135px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                      <span style={{ fontSize: "13px", fontWeight: 700, display: "block", marginBottom: "12px", wordBreak: "break-all" }}>{file.name}</span>
+                      <div style={{ display: "flex", gap: "8px", justifyContent: "center", alignItems: "center" }}>
+                        {previewUrl && (
+                          <a href={previewUrl} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline" style={{ display: "inline-flex" }}>
+                            <Eye size={14} /> View PDF
+                          </a>
+                        )}
+                        <label htmlFor="assignmentPdf" className="btn btn-sm btn-outline" style={{ margin: 0, cursor: "pointer" }}>
+                          Change File
+                        </label>
                       </div>
-                    )}
-                  </label>
+                    </div>
+                  )}
                   <input
                     id="assignmentPdf"
                     type="file"

@@ -1443,7 +1443,7 @@ router.get(
 
 
 router.post(
-  "/student/assignments/:id/submit",
+  ["/student/assignments/:id/submit", "/api/student/assignments/:id/submit"],
   verifyStudent,
   async(req,res)=>{
 

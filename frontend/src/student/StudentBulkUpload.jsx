@@ -152,13 +152,6 @@ const StudentBulkUpload = () => {
                 <p className="card-subtitle">Select multiple PDF files to upload in a single submission batch</p>
               </div>
             </div>
-            <button
-              className="btn btn-sm btn-outline"
-              onClick={() => navigate("/student/assignments")}
-            >
-              <ArrowLeft size={16} />
-              <span>Back to List</span>
-            </button>
           </div>
 
           <div className="card-body">

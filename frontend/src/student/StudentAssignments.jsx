@@ -94,6 +94,25 @@ const StudentAssignments = () => {
     }
   };
 
+  const handleSubmitAssignment = async (assignment) => {
+    try {
+      const toastId = toast.loading("Submitting assignment...");
+      const res = await api.post(`/api/student/assignments/${assignment._id}/submit`, {
+        reviewerId: assignment.reviewerId?._id || assignment.professor
+      });
+      toast.dismiss(toastId);
+      if (res.data.success) {
+        toast.success("Assignment submitted successfully");
+        fetchAssignments();
+      } else {
+        toast.error(res.data.message || "Failed to submit assignment");
+      }
+    } catch (err) {
+      toast.dismiss();
+      toast.error(err.response?.data?.message || "Failed to submit assignment");
+    }
+  };
+
   // Pagination Logic
   const totalPages = Math.ceil(assignments.length / pageSize) || 1;
   const safeCurrentPage = Math.min(currentPage, totalPages);
@@ -184,6 +203,12 @@ const StudentAssignments = () => {
                       assignment.status === "Draft" ||
                       assignment.status === "Rejected";
 
+                    const statusLower = assignment.status
+                      ? assignment.status.toLowerCase()
+                      : "draft";
+
+                    const canSubmit = statusLower === "draft" || statusLower === "rejected";
+
                     const feedbackText =
                       assignment.rejectionRemarks ||
                       assignment.remarks ||
@@ -243,6 +268,15 @@ const StudentAssignments = () => {
 
                         <td className="text-right">
                           <div className="table-actions-group">
+                            <button
+                              className="btn btn-sm btn-primary"
+                              disabled={!canSubmit}
+                              onClick={() => canSubmit && handleSubmitAssignment(assignment)}
+                            >
+                              <UploadCloud size={14} />
+                              <span>Submitted</span>
+                            </button>
+
                             <button
                               className="btn btn-sm btn-outline"
                               onClick={() => handleDetails(assignment._id)}

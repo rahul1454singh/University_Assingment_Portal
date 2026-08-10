@@ -20,7 +20,7 @@ async function dashboardHandler(req, res) {
 
     const pendingCount = await Assignment.countDocuments({
       professor: professorId,
-      status: "Draft"
+      status: "Submitted"
     });
     const approvedCount = await Assignment.countDocuments({
       professor: professorId,
@@ -34,7 +34,8 @@ async function dashboardHandler(req, res) {
     const totalReviewed = approvedCount + rejectedCount;
 
     const allReviews = await Assignment.find({
-      professor: professorId
+      professor: professorId,
+      status: { $ne: "Draft" }
     })
       .populate("user", "name email phone")
       .sort({ submittedAt: -1 })
@@ -179,7 +180,8 @@ async function reviewHandler(req, res) {
 
     const assignment = await Assignment.findOne({
       _id: req.params.id,
-      reviewerId: req.professor._id
+      reviewerId: req.professor._id,
+      status: { $ne: "Draft" }
     }).populate("user", "name email phone");
 
     if (!assignment) {
@@ -211,7 +213,8 @@ async function decisionHandler(req, res) {
 
     const assignment = await Assignment.findOne({
       _id: req.params.id,
-      reviewerId: req.professor._id
+      reviewerId: req.professor._id,
+      status: { $ne: "Draft" }
     });
 
     if (!assignment) {

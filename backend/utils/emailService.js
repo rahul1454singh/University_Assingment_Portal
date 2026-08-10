@@ -36,9 +36,9 @@ const sendWelcomeEmail = async (userName, email, temporaryPassword) => {
       <p style="font-size: 14px; color: #475569; line-height: 1.5;">Please change your password after logging in for security reasons.</p>
       
       <div style="text-align: center; margin: 28px 0;">
-        <button style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: #ffffff; padding: 12px 28px; border: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer;">
+        <a href="https://assignmentportal2026.vercel.app/" style="display: inline-block; background: linear-gradient(135deg, #1e3c72, #2a5298); color: #ffffff; padding: 12px 28px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer;">
           Login
-        </button>
+        </a>
       </div>
 
       <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />

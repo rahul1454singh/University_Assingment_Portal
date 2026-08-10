@@ -160,13 +160,6 @@ const StudentUploadAssignment = () => {
                 <p className="card-subtitle">Submit your PDF document for professor review</p>
               </div>
             </div>
-            <button
-              className="btn btn-sm btn-outline"
-              onClick={() => navigate("/student/assignments")}
-            >
-              <ArrowLeft size={16} />
-              <span>Back to List</span>
-            </button>
           </div>
 
           <div className="card-body">

@@ -7,6 +7,9 @@ const AssignmentDetailsModal = memo(({ isOpen, onClose, assignment }) => {
 
   const statusLower = assignment.status ? assignment.status.toLowerCase() : "draft";
   const isReviewed = statusLower === "approved" || statusLower === "rejected";
+  
+  const reviewStatusDisplay = (statusLower === "draft" || statusLower === "submitted") ? "Pending" : assignment.status;
+  const reviewStatusBadgeClass = (statusLower === "draft" || statusLower === "submitted") ? "status-pending" : `status-${statusLower}`;
 
   const profName = isReviewed
     ? assignment.reviewerName ||
@@ -105,8 +108,8 @@ const AssignmentDetailsModal = memo(({ isOpen, onClose, assignment }) => {
           <div className="detail-row">
             <span>Review Status</span>
             <div>
-              <span className={`badge status-${statusLower}`}>
-                {assignment.status}
+              <span className={`badge ${reviewStatusBadgeClass}`}>
+                {reviewStatusDisplay}
               </span>
             </div>
           </div>
