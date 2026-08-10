@@ -3,6 +3,7 @@ import api from "../services/api";
 import toast from "react-hot-toast";
 import StudentLayout from "./StudentLayout";
 import { User, Mail, Phone, Building2, Camera, Eye, EyeOff, Lock } from "lucide-react";
+import DepartmentCell from "../components/DepartmentCell";
 import "../css/StudentProfile.css";
 
 const StudentProfile = () => {
@@ -14,6 +15,7 @@ const StudentProfile = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showAllDeps, setShowAllDeps] = useState(false);
+  const [openPopoverId, setOpenPopoverId] = useState(null);
 
   const fileInputRef = useRef(null);
 
@@ -218,10 +220,17 @@ const StudentProfile = () => {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label">Department(s)</label>
-                  <div className="input-icon-wrapper">
-                    <Building2 size={18} className="input-icon" />
-                    <input value={depList.join(", ")} disabled className="form-input" />
+                  <label className="form-label">Departments</label>
+                  <div className="input-icon-wrapper" style={{ padding: '8px 12px', border: '1px solid var(--border-color)', borderRadius: 'var(--border-radius-md)', backgroundColor: 'var(--bg-secondary)', display: 'flex', alignItems: 'center' }}>
+                    <Building2 size={18} className="input-icon" style={{ position: 'static', transform: 'none', color: 'var(--text-muted)' }} />
+                    <div style={{ marginLeft: '8px' }}>
+                      <DepartmentCell
+                        departments={depList}
+                        userId={profile._id}
+                        openPopoverId={openPopoverId}
+                        setOpenPopoverId={setOpenPopoverId}
+                      />
+                    </div>
                   </div>
                 </div>
 

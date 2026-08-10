@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import api from "../services/api";
 import ProfessorLayout from "./ProfessorLayout";
 import MessageContactDropdown from "../components/MessageContactDropdown";
+import DepartmentCell from "../components/DepartmentCell";
 import { Send, UserCheck, MessageSquare, Check, CheckCheck, User, Search } from "lucide-react";
 import "../css/Messages.css";
 
@@ -15,6 +16,7 @@ const ProfessorMessages = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [loadingContacts, setLoadingContacts] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
+  const [openPopoverId, setOpenPopoverId] = useState(null);
 
   const socketRef = useRef(null);
   const messagesEndRef = useRef(null);
@@ -337,7 +339,14 @@ const ProfessorMessages = () => {
 
                       <div className="contact-info">
                         <p className="contact-name">{c.name}</p>
-                        <p className="contact-dept">{c.departmentName}</p>
+                        <div className="contact-dept" onClick={(e) => e.stopPropagation()}>
+                          <DepartmentCell 
+                            departments={c.departments?.length > 0 ? c.departments : (c.departmentName ? [c.departmentName] : [])}
+                            userId={c._id}
+                            openPopoverId={openPopoverId}
+                            setOpenPopoverId={setOpenPopoverId}
+                          />
+                        </div>
                       </div>
 
                       {c.unreadCount > 0 && (

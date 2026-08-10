@@ -21,8 +21,16 @@ const MessageContactDropdown = ({ placeholder, options, selectedId, onSelect, pr
   const selectedContact = options.find((c) => c._id === selectedId);
 
   const getOptionLabel = (c) => {
-    return `${prefix}${c.name} (${c.departmentName || "General Department"})${
-      c.unreadCount > 0 ? ` — ${c.unreadCount} unread` : ""
+    let deptText = c.departmentName || "General Department";
+    if (c.departments && c.departments.length > 0) {
+      if (c.departments.length <= 2) {
+        deptText = c.departments.join(", ");
+      } else {
+        deptText = `${c.departments.slice(0, 2).join(", ")} +${c.departments.length - 2} more`;
+      }
+    }
+    return `${prefix}${c.name} — ${deptText}${
+      c.unreadCount > 0 ? ` (${c.unreadCount} unread)` : ""
     }`;
   };
 

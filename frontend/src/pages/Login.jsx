@@ -65,7 +65,7 @@ function Login() {
           <div className="hero-content-body">
             <h1 className="hero-heading">Welcome to Academic Portal</h1>
             <p className="hero-description">
-              Streamlined university assignment management, reviews, and administration all in one secure place.
+              Stay on top of coursework, submissions, feedback, and academic communication.
             </p>
           </div>
 
@@ -149,9 +149,6 @@ function Login() {
             </form>
 
             <div className="auth-footer-help">
-              <p className="small-info">
-                Need help accessing your account? Contact your department admin.
-              </p>
               <div className="mobile-footer-note">
                 © {new Date().getFullYear()} University Assignment Portal. All rights reserved.
               </div>

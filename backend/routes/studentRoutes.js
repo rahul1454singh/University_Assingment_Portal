@@ -1705,14 +1705,23 @@ router.get(
 
     try {
 
-     const professors = await User.find({
-  role:{
-    $regex:/^professor$/i
-  },
-  department:req.user.department
-})
-.select("_id name fullName")
-.lean();
+      const userDepIds = [];
+      if (Array.isArray(req.user.departments) && req.user.departments.length > 0) {
+        req.user.departments.forEach(d => userDepIds.push(typeof d === 'object' && d._id ? d._id.toString() : d.toString()));
+      }
+      if (req.user.department) {
+        userDepIds.push(typeof req.user.department === 'object' && req.user.department._id ? req.user.department._id.toString() : req.user.department.toString());
+      }
+      
+      const professors = await User.find({
+        role: { $regex: /^professor$/i },
+        $or: [
+          { departments: { $in: userDepIds } },
+          { department: { $in: userDepIds } }
+        ]
+      })
+      .select("_id name fullName")
+      .lean();
 
 
       res.json({

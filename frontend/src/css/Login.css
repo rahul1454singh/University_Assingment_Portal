@@ -17,7 +17,7 @@
   grid-template-columns: 1fr 1.1fr;
   width: 100%;
   max-width: 960px;
-  min-height: 560px;
+  min-height: 480px;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
@@ -73,7 +73,7 @@
 }
 
 .hero-content-body {
-  margin: 40px 0;
+  margin: 24px 0;
 }
 
 .hero-heading {
