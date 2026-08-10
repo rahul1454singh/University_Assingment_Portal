@@ -218,9 +218,7 @@ const StudentAssignments = () => {
                       assignment.createdAt || assignment.submittedAt
                     );
 
-                    const statusLower = assignment.status
-                      ? assignment.status.toLowerCase()
-                      : "draft";
+
 
                     const fileName = assignment.file?.originalname || "";
                     const ext = fileName.split(".").pop()?.toUpperCase() || "PDF";
