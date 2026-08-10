@@ -137,7 +137,13 @@ router.post("/admin/users", verifyAdmin, async (req, res) => {
     );
 
     // Send Welcome Email (Requirement 12)
-    await sendWelcomeEmail(name, email, plainPassword);
+    let emailSent = false;
+    try {
+      await sendWelcomeEmail(name, email, plainPassword);
+      emailSent = true;
+    } catch (emailErr) {
+      console.error("Welcome email failed to send:", emailErr.message);
+    }
 
     let summaryText =
       role.toLowerCase() === "student"
@@ -166,7 +172,7 @@ router.post("/admin/users", verifyAdmin, async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: "User created successfully and email sent!",
+      message: emailSent ? "User created successfully and email sent!" : "User created successfully, but welcome email failed to send.",
       user: newUser,
     });
 
