@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import api from "../services/api";
 import toast from "react-hot-toast";
 import { GraduationCap, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
@@ -13,6 +13,14 @@ function ForceChangePassword() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email;
+
+  useEffect(() => {
+    if (!email) {
+      navigate("/login");
+    }
+  }, [email, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +36,7 @@ function ForceChangePassword() {
 
     try {
       const response = await api.post("/api/auth/force-change-password", {
+        email,
         currentPassword,
         newPassword
       });

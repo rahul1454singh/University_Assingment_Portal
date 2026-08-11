@@ -104,6 +104,14 @@ router.post("/login", async (req, res) => {
 
 
 
+      if (user.mustChangePassword) {
+        return res.json({
+          success: true,
+          requirePasswordChange: true,
+          email: user.email
+        });
+      }
+
       const token = jwt.sign(
 
         {
@@ -146,7 +154,7 @@ router.post("/login", async (req, res) => {
           role:user.role
         },
 
-        redirect: user.mustChangePassword ? "/force-change-password" : redirectByRole(user.role)
+        redirect: redirectByRole(user.role)
 
       });
 
@@ -330,24 +338,12 @@ router.get("/api/auth/me", async (req, res) => {
 /* ================= FORCE CHANGE PASSWORD API ================= */
 router.post("/api/auth/force-change-password", async (req, res) => {
   try {
-    const token = req.cookies?.token;
-    if (!token) {
-      return res.status(401).json({ success: false, message: "Not authenticated" });
+    const { email, currentPassword, newPassword } = req.body;
+    if (!email || !currentPassword || !newPassword) {
+      return res.status(400).json({ success: false, message: "Email, current, and new passwords are required." });
     }
 
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    if (!payload || !payload.id) {
-      return res.status(401).json({ success: false, message: "Invalid token" });
-    }
-
-    const { currentPassword, newPassword } = req.body;
-    if (!currentPassword || !newPassword) {
-      return res.status(400).json({ success: false, message: "Both current and new passwords are required." });
-    }
-
-    // Only students/professors have mustChangePassword. 
-    // They are stored in UserData, not Admin.
-    const user = await UserData.findById(payload.id);
+    const user = await UserData.findOne({ email });
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found." });
     }
@@ -357,14 +353,10 @@ router.post("/api/auth/force-change-password", async (req, res) => {
       return res.status(400).json({ success: false, message: "Current password is incorrect." });
     }
 
-    // UserDataSchema has a 'pre("save")' hook that hashes the password automatically.
     user.password = newPassword;
     user.mustChangePassword = false;
     await user.save();
     
-    // Log them out so they must log in again
-    res.clearCookie("token", { httpOnly: true, sameSite: "none", secure: true });
-
     return res.json({
       success: true,
       message: "Password changed successfully."

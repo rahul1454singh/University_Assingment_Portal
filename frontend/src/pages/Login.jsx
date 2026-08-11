@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../services/api";
 import toast from "react-hot-toast";
 import { GraduationCap, Mail, Lock, Eye, EyeOff, ArrowRight, ShieldCheck } from "lucide-react";
@@ -11,6 +11,7 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,6 +27,11 @@ function Login() {
       });
 
       if (response.data.success) {
+        if (response.data.requirePasswordChange) {
+          navigate("/force-change-password", { state: { email: response.data.email } });
+          return;
+        }
+
         localStorage.setItem(
           "user",
           JSON.stringify(response.data.user)
