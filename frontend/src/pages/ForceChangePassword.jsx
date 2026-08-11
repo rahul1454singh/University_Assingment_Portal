@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import api from "../services/api";
 import toast from "react-hot-toast";
 import { GraduationCap, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
@@ -14,7 +14,8 @@ function ForceChangePassword() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const email = location.state?.email;
+  const [searchParams] = useSearchParams();
+  const email = location.state?.email || searchParams.get("email");
 
   useEffect(() => {
     if (!email) {
