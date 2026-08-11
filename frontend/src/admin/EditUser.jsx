@@ -74,17 +74,28 @@ const EditUser = () => {
   };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+
+    if (name === "role" && value === "student") {
+      if (selectedDepartments.length > 1) {
+        setSelectedDepartments([selectedDepartments[0]]);
+      }
+    }
   };
 
   const handleDepartmentToggle = (depId) => {
-    if (selectedDepartments.includes(depId)) {
-      setSelectedDepartments(selectedDepartments.filter((d) => d !== depId));
+    if (form.role === "student") {
+      setSelectedDepartments([depId]);
     } else {
-      setSelectedDepartments([...selectedDepartments, depId]);
+      if (selectedDepartments.includes(depId)) {
+        setSelectedDepartments(selectedDepartments.filter((d) => d !== depId));
+      } else {
+        setSelectedDepartments([...selectedDepartments, depId]);
+      }
     }
   };
 
@@ -205,7 +216,7 @@ const EditUser = () => {
               <div className="form-group full-width" style={{ marginTop: "10px" }}>
                 <label className="form-label" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                   <Building2 size={16} />
-                  <span>Assigned Department(s) — Select One or Multiple:</span>
+                  <span>Assigned Department(s) — {form.role === "student" ? "Select One:" : "Select One or Multiple:"}</span>
                 </label>
                 <div className="dept-checkbox-grid">
                   {departments.map((dep) => {
@@ -213,7 +224,7 @@ const EditUser = () => {
                     return (
                       <label key={dep._id} className={`dept-checkbox-pill ${checked ? "selected" : ""}`}>
                         <input
-                          type="checkbox"
+                          type={form.role === "student" ? "radio" : "checkbox"}
                           checked={checked}
                           onChange={() => handleDepartmentToggle(dep._id)}
                         />

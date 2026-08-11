@@ -47,6 +47,13 @@ router.post("/admin/users", verifyAdmin, async (req, res) => {
       ? departments
       : (department ? [department] : []);
 
+    if (role === "student" && depList.length > 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Students can only be enrolled in a single department.",
+      });
+    }
+
     if (!name || !email || depList.length === 0 || !role) {
       return res.status(400).json({
         success: false,
@@ -70,17 +77,26 @@ router.post("/admin/users", verifyAdmin, async (req, res) => {
       }
 
       let updated = false;
+      let newDeps = [...currentDeps];
       depList.forEach((depId) => {
-        if (depId && !currentDeps.includes(depId.toString())) {
-          currentDeps.push(depId.toString());
+        if (depId && !newDeps.includes(depId.toString())) {
+          newDeps.push(depId.toString());
           updated = true;
         }
       });
 
+      const currentRole = existingUser.role || role;
+      if (currentRole === "student" && newDeps.length > 1) {
+        return res.status(400).json({
+          success: false,
+          message: "Students can only be enrolled in a single department.",
+        });
+      }
+
       if (updated) {
-        existingUser.departments = currentDeps;
-        if (!existingUser.department && currentDeps.length > 0) {
-          existingUser.department = currentDeps[0];
+        existingUser.departments = newDeps;
+        if (!existingUser.department && newDeps.length > 0) {
+          existingUser.department = newDeps[0];
         }
         await existingUser.save();
 
@@ -276,6 +292,14 @@ router.put("/admin/users/:id", verifyAdmin, async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "Invalid phone number format. Must be a valid international number.",
+      });
+    }
+
+    const targetRole = role || user.role;
+    if (targetRole === "student" && departments && departments.length > 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Students can only be enrolled in a single department.",
       });
     }
 
