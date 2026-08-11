@@ -78,9 +78,16 @@ const Layout = ({
       const res = await api.get("/api/auth/me");
       if (res.data && res.data.success && res.data.user) {
         setUserName(res.data.user.name || "User");
-        if (res.data.user.profileImage) {
-          setProfileImage(res.data.user.profileImage);
+        setProfileImage(res.data.user.profileImage || "");
+        
+        const stored = localStorage.getItem("user");
+        let u = {};
+        if (stored) {
+          try {
+            u = JSON.parse(stored);
+          } catch (e) {}
         }
+        localStorage.setItem("user", JSON.stringify({ ...u, ...res.data.user }));
       }
     } catch (e) {
       // Ignore fallback
