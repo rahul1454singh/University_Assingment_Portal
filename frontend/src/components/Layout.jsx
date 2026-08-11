@@ -18,8 +18,29 @@ const Layout = ({
 }) => {
   const navigate = useNavigate();
 
-  const [userName, setUserName] = useState(initialUserName || "User");
-  const [profileImage, setProfileImage] = useState(initialProfileImage || "");
+  const [userName, setUserName] = useState(() => {
+    if (initialUserName) return initialUserName;
+    try {
+      const stored = localStorage.getItem("user");
+      if (stored) {
+        const u = JSON.parse(stored);
+        return u.name || u.fullName || "User";
+      }
+    } catch(e) {}
+    return "User";
+  });
+  
+  const [profileImage, setProfileImage] = useState(() => {
+    if (initialProfileImage) return initialProfileImage;
+    try {
+      const stored = localStorage.getItem("user");
+      if (stored) {
+        const u = JSON.parse(stored);
+        return u.profileImage || "";
+      }
+    } catch(e) {}
+    return "";
+  });
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -37,15 +58,7 @@ const Layout = ({
   }, [title]);
 
   useEffect(() => {
-    // Load stored user info
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      try {
-        const u = JSON.parse(storedUser);
-        setUserName(u.name || u.fullName || "User");
-        if (u.profileImage) setProfileImage(u.profileImage);
-      } catch (e) {}
-    }
+
 
     // Fetch up-to-date user profile
     fetchCurrentUser();
