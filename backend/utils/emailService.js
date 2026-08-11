@@ -37,7 +37,7 @@ const sendWelcomeEmail = async (userName, email, temporaryPassword) => {
       
       <div style="text-align: center; margin: 28px 0;">
         <a href="${process.env.FRONTEND_URL || "https://assignmentportal2026.vercel.app"}/force-change-password?email=${encodeURIComponent(email)}" style="display: inline-block; background: linear-gradient(135deg, #1e3c72, #2a5298); color: #ffffff; padding: 12px 28px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer;">
-          Set New Password
+          Activate Account
         </a>
       </div>
 
