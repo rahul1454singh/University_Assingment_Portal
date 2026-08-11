@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu, X, Bell, User, GraduationCap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import "../css/Navbar.css";
 
 const Navbar = ({
@@ -10,6 +11,8 @@ const Navbar = ({
   title = "Dashboard",
   role = "Student"
 }) => {
+  const navigate = useNavigate();
+
   const firstName = userName ? userName.split(" ")[0] : "User";
   const initialLetter = firstName.charAt(0).toUpperCase();
 
@@ -18,6 +21,12 @@ const Navbar = ({
     if (r === "admin") return "role-tag-admin";
     if (r === "professor") return "role-tag-prof";
     return "role-tag-student";
+  };
+
+  const handleProfileClick = () => {
+    const r = role ? role.toLowerCase() : "student";
+    if (r === "student") navigate("/student/profile");
+    if (r === "professor") navigate("/professor/profile");
   };
 
   return (
@@ -52,7 +61,11 @@ const Navbar = ({
           </span>
         </div>
 
-        <div className="user-avatar-wrapper">
+        <div 
+          className="user-avatar-wrapper"
+          onClick={handleProfileClick}
+          style={{ cursor: "pointer" }}
+        >
           {profileImage ? (
             <img
               src={profileImage}
