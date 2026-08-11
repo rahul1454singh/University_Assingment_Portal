@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 // Auth Pages
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import ForceChangePassword from "./pages/ForceChangePassword";
 
 // Admin Pages
 import AdminDashboard from "./admin/AdminDashboard";
@@ -39,6 +40,7 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/force-change-password" element={<ForceChangePassword />} />
 
       {/* Admin Routes */}
       <Route path="/admin/dashboard" element={<AdminDashboard />} />

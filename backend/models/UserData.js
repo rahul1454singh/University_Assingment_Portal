@@ -61,6 +61,10 @@ const UserDataSchema = new mongoose.Schema({
     default: ""
   },
 
+  mustChangePassword: {
+    type: Boolean,
+    default: false
+  },
 
   // Password Reset
 

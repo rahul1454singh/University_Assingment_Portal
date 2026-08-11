@@ -136,6 +136,7 @@ router.post("/admin/users", verifyAdmin, async (req, res) => {
       department: depList[0],
       departments: depList,
       role,
+      mustChangePassword: true
     });
 
     const adminName = req.admin ? (req.admin.name || req.admin.email) : "System Admin";
