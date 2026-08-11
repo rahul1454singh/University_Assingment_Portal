@@ -582,29 +582,35 @@ router.get(
   async(req,res)=>{
 
     try{
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+      const skip = (page - 1) * limit;
+
+      const totalItems = await Assignment.countDocuments({ user:req.user._id });
+      const totalPages = Math.ceil(totalItems / limit) || 1;
 
       const assignments = await Assignment.find({
         user:req.user._id
       })
       .sort({createdAt:-1})
+      .skip(skip)
+      .limit(limit)
       .lean();
-
 
       res.json({
         success:true,
-        assignments
+        assignments,
+        totalItems,
+        totalPages,
+        currentPage: page
       });
 
-
     }catch(err){
-
       console.error(err);
-
       res.status(500).json({
         success:false,
         message:"Server Error"
       });
-
     }
 
   }

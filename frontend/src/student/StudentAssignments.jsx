@@ -20,17 +20,21 @@ const StudentAssignments = () => {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     fetchAssignments();
-  }, []);
+  }, [currentPage]);
 
   const fetchAssignments = async () => {
     try {
-      const res = await api.get("/api/student/assignments");
+      const res = await api.get(`/api/student/assignments?page=${currentPage}&limit=${pageSize}`);
       if (res.data.success) {
         setAssignments(res.data.assignments || []);
+        if (res.data.totalPages) {
+          setTotalPages(res.data.totalPages);
+        }
       }
     } catch (err) {
       console.error(err);
@@ -114,10 +118,8 @@ const StudentAssignments = () => {
   };
 
   // Pagination Logic
-  const totalPages = Math.ceil(assignments.length / pageSize) || 1;
-  const safeCurrentPage = Math.min(currentPage, totalPages);
-  const startIndex = (safeCurrentPage - 1) * pageSize;
-  const currentAssignments = assignments.slice(startIndex, startIndex + pageSize);
+  const safeCurrentPage = currentPage;
+  const currentAssignments = assignments;
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {

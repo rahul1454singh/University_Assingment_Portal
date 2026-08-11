@@ -98,26 +98,33 @@ router.post("/admin/departments", verifyAdmin, async (req, res) => {
 // React API - get departments
 router.get("/admin/departments", verifyAdmin, async (req,res)=>{
   try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+    const skip = (page - 1) * limit;
 
     const filter = buildFilter({
       q:req.query.q || "",
       type:req.query.type || ""
     });
 
+    const totalItems = await Department.countDocuments(filter);
+    const totalPages = Math.ceil(totalItems / limit) || 1;
 
     const departments = await Department.find(filter)
-      .sort({ createdAt: -1 });
-
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
     const departmentsWithUserCount =
       await attachUserCounts(departments);
 
-
     res.json({
       success:true,
-      departments:departmentsWithUserCount
+      departments:departmentsWithUserCount,
+      totalItems,
+      totalPages,
+      currentPage: page
     });
-
 
   } catch(err){
 

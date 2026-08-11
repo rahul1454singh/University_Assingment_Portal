@@ -114,13 +114,16 @@ router.get("/admin/dashboard/stats", verifyAdmin, async (req, res) => {
 // =======================
 router.get("/admin/activities", verifyAdmin, async (req, res) => {
   try {
-    let activities = await ActivityLog.find({ isAdminAction: { $ne: false } })
-      .sort({ createdAt: -1 })
-      .limit(50)
-      .lean();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
 
-    // If no activities exist yet, seed initial activities so feed is never empty
-    if (activities.length === 0) {
+    const filter = { isAdminAction: { $ne: false } };
+
+    const totalItems = await ActivityLog.countDocuments(filter);
+    
+    // Seed if empty (keep this logic)
+    if (totalItems === 0) {
       await ActivityLog.create([
         {
           title: "New Department Created",
@@ -141,16 +144,23 @@ router.get("/admin/activities", verifyAdmin, async (req, res) => {
           isAdminAction: true
         }
       ]);
-
-      activities = await ActivityLog.find({ isAdminAction: { $ne: false } })
-        .sort({ createdAt: -1 })
-        .limit(50)
-        .lean();
     }
+
+    const updatedTotalItems = await ActivityLog.countDocuments(filter);
+    const totalPages = Math.ceil(updatedTotalItems / limit) || 1;
+
+    const activities = await ActivityLog.find(filter)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .lean();
 
     res.json({
       success: true,
-      activities
+      activities,
+      totalItems: updatedTotalItems,
+      totalPages,
+      currentPage: page
     });
   } catch (err) {
     console.error("Activities error:", err);

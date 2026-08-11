@@ -210,9 +210,26 @@ router.post("/admin/users", verifyAdmin, async (req, res) => {
 // =======================
 router.get("/admin/users", verifyAdmin, async (req, res) => {
   try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+    const skip = (page - 1) * limit;
 
-    const users = await UserData.find()
+    const query = {};
+    if (req.query.q && req.query.q.trim() !== "") {
+      const searchRegex = new RegExp(req.query.q.trim(), "i");
+      query.$or = [
+        { name: searchRegex },
+        { email: searchRegex }
+      ];
+    }
+
+    const totalItems = await UserData.countDocuments(query);
+    const totalPages = Math.ceil(totalItems / limit) || 1;
+
+    const users = await UserData.find(query)
       .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
       .populate("department", "name")
       .populate("departments", "name")
       .lean();
@@ -220,17 +237,17 @@ router.get("/admin/users", verifyAdmin, async (req, res) => {
     res.json({
       success: true,
       users,
+      totalItems,
+      totalPages,
+      currentPage: page
     });
 
   } catch (err) {
-
     console.error(err);
-
     res.status(500).json({
       success: false,
       message: "Error fetching users",
     });
-
   }
 });
 

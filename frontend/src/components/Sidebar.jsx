@@ -13,7 +13,8 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  GraduationCap
+  GraduationCap,
+  Activity
 } from "lucide-react";
 import "../css/Sidebar.css";
 
@@ -43,7 +44,8 @@ const Sidebar = ({
         path: "/admin/complaints",
         icon: MessageSquareWarning,
         badge: unreadComplaintsCount > 0 ? unreadComplaintsCount : null
-      }
+      },
+      { name: "Recent Activity", path: "/admin/activities", icon: Activity }
     ];
   } else if (lowerRole === "professor") {
     menuItems = [

@@ -14,6 +14,7 @@ import Users from "./admin/Users";
 import CreateUser from "./admin/CreateUser";
 import EditUser from "./admin/EditUser";
 import Complaints from "./admin/Complaints";
+import RecentActivity from "./admin/RecentActivity";
 
 // Student Pages
 import StudentDashboard from "./student/StudentDashboard";
@@ -48,6 +49,7 @@ function App() {
       <Route path="/admin/users/create" element={<CreateUser />} />
       <Route path="/admin/users/edit/:id" element={<EditUser />} />
       <Route path="/admin/complaints" element={<Complaints />} />
+      <Route path="/admin/activities" element={<RecentActivity />} />
 
       {/* Student Routes */}
       <Route path="/student/dashboard" element={<StudentDashboard />} />

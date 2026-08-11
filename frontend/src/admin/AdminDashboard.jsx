@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import AdminLayout from "./AdminLayout";
 import { formatDateTime } from "../utils/formatDate";
@@ -34,7 +35,7 @@ const AdminDashboard = () => {
 
   const [activities, setActivities] = useState([]);
   const [loadingActivities, setLoadingActivities] = useState(true);
-  const [expanded, setExpanded] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadDashboardStats();
@@ -281,7 +282,7 @@ const AdminDashboard = () => {
                   No recent activity recorded.
                 </p>
               ) : (
-                (expanded ? activities : activities.slice(0, 4)).map((act) => {
+                activities.slice(0, 4).map((act) => {
                   const { date, time } = formatDateTime(act.createdAt);
                   return (
                     <div
@@ -310,9 +311,9 @@ const AdminDashboard = () => {
               <div style={{ textAlign: "center", marginTop: "20px" }}>
                 <button
                   className="btn btn-sm btn-outline"
-                  onClick={() => setExpanded(!expanded)}
+                  onClick={() => navigate("/admin/activities")}
                 >
-                  {expanded ? "Show Less ▲" : `View More (${activities.length - 4} more) ▼`}
+                  View Full Activity Log
                 </button>
               </div>
             )}

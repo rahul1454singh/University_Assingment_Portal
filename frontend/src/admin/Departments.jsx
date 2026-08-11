@@ -13,13 +13,17 @@ const Departments = () => {
   const [type, setType] = useState("");
   const [error, setError] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [deleteDeptId, setDeleteDeptId] = useState(null);
   const itemsPerPage = 6;
 
   const loadDepartments = async () => {
     try {
-      const res = await api.get("/admin/departments");
+      const res = await api.get(`/admin/departments?page=${currentPage}&limit=${itemsPerPage}&q=${search}&type=${type}`);
       setDepartments(res.data.departments || []);
+      if (res.data.totalPages) {
+        setTotalPages(res.data.totalPages);
+      }
     } catch (err) {
       console.error("API ERROR:", err);
       setError("Failed to load departments");
@@ -28,7 +32,11 @@ const Departments = () => {
 
   useEffect(() => {
     loadDepartments();
-  }, []);
+  }, [currentPage, search, type]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, type]);
 
   const confirmDeleteDepartment = async () => {
     if (!deleteDeptId) return;
@@ -45,19 +53,7 @@ const Departments = () => {
     }
   };
 
-  const filteredDepartments = departments.filter((dep) => {
-    return (
-      dep.name.toLowerCase().includes(search.toLowerCase()) &&
-      (type === "" || dep.type === type)
-    );
-  });
-
-  const totalPages = Math.ceil(filteredDepartments.length / itemsPerPage) || 1;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentDepartments = filteredDepartments.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const currentDepartments = departments;
 
   return (
     <AdminLayout title="Departments Management">

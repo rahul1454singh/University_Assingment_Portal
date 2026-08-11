@@ -13,39 +13,29 @@ import DepartmentCell from "../components/DepartmentCell";
 const Users = () => {
   const [openPopoverId, setOpenPopoverId] = useState(null);
   const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [deleteUserId, setDeleteUserId] = useState(null);
   const usersPerPage = 6;
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-  const totalPages = Math.ceil(filteredUsers.length / usersPerPage) || 1;
-
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [currentPage, search]);
 
   useEffect(() => {
-    const data = users.filter(
-      (user) =>
-        (user.name && user.name.toLowerCase().includes(search.toLowerCase())) ||
-        (user.email && user.email.toLowerCase().includes(search.toLowerCase()))
-    );
-
-    setFilteredUsers(data);
     setCurrentPage(1);
-  }, [search, users]);
+  }, [search]);
 
   const fetchUsers = async () => {
     try {
-      const res = await api.get("/admin/users");
+      const res = await api.get(`/admin/users?page=${currentPage}&limit=${usersPerPage}&q=${search}`);
       const list = res.data.users || [];
       setUsers(list);
-      setFilteredUsers(list);
+      if (res.data.totalPages) {
+        setTotalPages(res.data.totalPages);
+      }
     } catch (err) {
       console.error(err);
       toast.error("Failed to load users");
@@ -53,6 +43,8 @@ const Users = () => {
       setLoading(false);
     }
   };
+
+  const currentUsers = users;
 
   const confirmDeleteUser = async () => {
     if (!deleteUserId) return;
