@@ -2,10 +2,12 @@
 const dns = require("dns");
 const mongoose = require("mongoose");
 
-// Fix for Windows / ISP DNS issues resolving MongoDB Atlas SRV records
-try {
-  dns.setServers(["8.8.8.8", "8.8.4.4"]);
-} catch (e) {}
+// Fix for Windows / ISP DNS issues resolving MongoDB Atlas SRV records (Windows only)
+if (process.platform === "win32") {
+  try {
+    dns.setServers(["8.8.8.8", "8.8.4.4"]);
+  } catch (e) {}
+}
 
 const DEFAULT_LOCAL_URI = "mongodb://127.0.0.1:27017/universityDB";
 
@@ -32,7 +34,7 @@ async function connectDB({ retries = 3, retryDelayMs = 2000 } = {}) {
   }
 
   const options = {
-    serverSelectionTimeoutMS: 10000
+    serverSelectionTimeoutMS: 8000
   };
 
   for (let attempt = 1; attempt <= retries + 1; attempt++) {
