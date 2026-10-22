@@ -20,9 +20,13 @@ async function connectDB({ retries = 3, retryDelayMs = 2000 } = {}) {
   // ✅ Detect production by presence of MONGO_URI
   const isProduction = !!process.env.MONGO_URI;
 
-  const uri = isProduction
+  let uri = isProduction
     ? process.env.MONGO_URI
     : DEFAULT_LOCAL_URI;
+
+  if (uri) {
+    uri = uri.replace(/\s+/g, "");
+  }
 
   if (!uri) {
     console.error("❌ MONGO_URI is required in production");

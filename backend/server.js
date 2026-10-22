@@ -81,10 +81,7 @@ app.use(async (req, res, next) => {
     console.error("Database connection middleware error:", err);
     return res.status(500).json({ 
       success: false, 
-      message: "Database connection failed",
-      error: err.message || err.toString(),
-      hasMongoUri: !!process.env.MONGO_URI,
-      mongoUriPreview: process.env.MONGO_URI ? process.env.MONGO_URI.slice(0, 25) + "..." : "none"
+      message: "Database connection failed"
     });
   }
 });
