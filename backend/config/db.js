@@ -10,6 +10,11 @@ try {
 const DEFAULT_LOCAL_URI = "mongodb://127.0.0.1:27017/universityDB";
 
 async function connectDB({ retries = 3, retryDelayMs = 2000 } = {}) {
+  // If already connected, reuse existing connection (crucial for Vercel serverless)
+  if (mongoose.connection.readyState >= 1) {
+    return;
+  }
+
   // ✅ Detect production by presence of MONGO_URI
   const isProduction = !!process.env.MONGO_URI;
 
