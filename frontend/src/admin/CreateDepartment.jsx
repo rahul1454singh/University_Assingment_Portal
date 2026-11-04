@@ -11,8 +11,7 @@ const CreateDepartment = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    type: "",
-    address: ""
+    type: ""
   });
 
   const [error, setError] = useState("");
@@ -30,13 +29,14 @@ const CreateDepartment = () => {
 
     setLoading(true);
     try {
-      const res = await api.post("/admin/departments", formData);
-      toast.success(res.data?.message || "Department created successfully!");
+      const deptName = formData.name;
+      await api.post("/admin/departments", formData);
+      toast.success(`Department "${deptName}" has been created successfully!`);
       setError("");
-
-      setTimeout(() => {
-        navigate("/admin/departments");
-      }, 800);
+      setFormData({
+        name: "",
+        type: ""
+      });
     } catch (err) {
       const msg = err.response?.data?.message || "Error creating department";
       setError(msg);
@@ -97,19 +97,6 @@ const CreateDepartment = () => {
                   <option value="PG">PG (Postgraduate)</option>
                   <option value="Research">Research</option>
                 </select>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Location / Address</label>
-                <input
-                  type="text"
-                  name="address"
-                  className="form-input"
-                  placeholder="e.g. Science Block A, Room 302"
-                  value={formData.address}
-                  onChange={handleChange}
-                  required
-                />
               </div>
 
               <div className="form-actions-row">

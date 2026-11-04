@@ -48,6 +48,9 @@
 }
 
 .navbar-center-portal-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -58,6 +61,8 @@
   padding: 6px 14px;
   border-radius: var(--radius-full);
   border: 1px solid var(--border-color);
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .navbar-center-portal-title .portal-icon {

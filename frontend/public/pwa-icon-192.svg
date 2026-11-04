@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="bgGrad192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#eff6ff"/>
+    </linearGradient>
+    <linearGradient id="capGrad192" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <filter id="shadow192" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1d4ed8" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="192" height="192" rx="42" fill="url(#bgGrad192)"/>
+  <rect width="188" height="188" x="2" y="2" rx="40" fill="none" stroke="#2563eb" stroke-width="2" stroke-opacity="0.15"/>
+
+  <!-- University Graduation Cap (Blue) -->
+  <g transform="translate(24, 24) scale(6)" filter="url(#shadow192)">
+    <!-- Mortarboard Top -->
+    <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" fill="url(#capGrad192)" stroke="#1d4ed8" stroke-width="0.5"/>
+    
+    <!-- Tassel -->
+    <path d="M22 10v6" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round"/>
+    <circle cx="22" cy="16.5" r="1" fill="#1d4ed8"/>
+    
+    <!-- Cap Skull Base -->
+    <path d="M6 12.5V16a6 6 0 0 0 12 0v-3.5" fill="none" stroke="#1d4ed8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

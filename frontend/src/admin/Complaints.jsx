@@ -12,7 +12,6 @@ const Complaints = () => {
 
   useEffect(() => {
     fetchComplaints();
-    markComplaintsAsRead();
   }, []);
 
   const fetchComplaints = async () => {
@@ -29,14 +28,6 @@ const Complaints = () => {
     }
   };
 
-  const markComplaintsAsRead = async () => {
-    try {
-      await api.put("/api/admin/complaints/mark-read");
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const handleStatusChange = async (id, newStatus) => {
     try {
       const res = await api.put(`/api/admin/complaints/${id}/status`, {
@@ -47,6 +38,8 @@ const Complaints = () => {
         setComplaints((prev) =>
           prev.map((c) => (c._id === id ? { ...c, status: newStatus } : c))
         );
+        // Dispatch event so Layout sidebar badge updates immediately
+        window.dispatchEvent(new Event("complaintsUpdated"));
       }
     } catch (err) {
       console.error(err);

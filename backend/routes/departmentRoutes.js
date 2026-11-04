@@ -24,7 +24,6 @@ const attachUserCounts = async (departments) => {
         _id: d._id,
         name: d.name,
         type: d.type,
-        address: d.address,
         userCount
       };
     })
@@ -57,9 +56,9 @@ router.post("/admin/departments", verifyAdmin, async (req, res) => {
 
     try {
 
-        const { name, type, address } = req.body;
+        const { name, type } = req.body;
 
-        if (!name || !type || !address) {
+        if (!name || !type) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
@@ -68,8 +67,7 @@ router.post("/admin/departments", verifyAdmin, async (req, res) => {
 
         const department = await Department.create({
             name,
-            type,
-            address
+            type
         });
 
         const adminName = req.admin ? (req.admin.name || req.admin.email) : "System Admin";
@@ -199,9 +197,9 @@ router.put("/admin/departments/:id", verifyAdmin, async (req, res) => {
 
   try {
 
-    const { name, type, address } = req.body;
+    const { name, type } = req.body;
 
-    if (!name || !type || !address) {
+    if (!name || !type) {
 
       return res.status(400).json({
         success: false,
@@ -216,8 +214,7 @@ router.put("/admin/departments/:id", verifyAdmin, async (req, res) => {
 
       {
         name,
-        type,
-        address
+        type
       },
 
       {

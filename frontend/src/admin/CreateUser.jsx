@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import AdminLayout from "./AdminLayout";
 import toast from "react-hot-toast";
-import { User, ArrowLeft, Eye, EyeOff, Lock, Mail, Phone, Building2 } from "lucide-react";
+import { User, ArrowLeft, Eye, EyeOff, Lock, Mail, Phone, Building2, Search } from "lucide-react";
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import "../css/CreateUser.css";
@@ -13,6 +13,7 @@ const CreateUser = () => {
 
   const [departments, setDepartments] = useState([]);
   const [selectedDepartments, setSelectedDepartments] = useState([]);
+  const [deptSearch, setDeptSearch] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -72,17 +73,24 @@ const CreateUser = () => {
 
     setLoading(true);
     try {
+      const userName = form.name;
       const payload = {
         ...form,
         departments: selectedDepartments,
         department: selectedDepartments[0]
       };
-      const res = await api.post("/admin/users", payload);
-      toast.success(res.data?.message || "User created successfully!");
+      await api.post("/admin/users", payload);
+      toast.success(`User "${userName}" has been created successfully!`);
 
-      setTimeout(() => {
-        navigate("/admin/users");
-      }, 800);
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        role: "student",
+        password: ""
+      });
+      setSelectedDepartments([]);
+      setDeptSearch("");
     } catch (err) {
       console.error(err);
       const msg = err.response?.data?.message || "Error creating user";
@@ -91,6 +99,10 @@ const CreateUser = () => {
       setLoading(false);
     }
   };
+
+  const filteredDepartments = departments.filter((dep) =>
+    (dep.name || "").toLowerCase().includes(deptSearch.toLowerCase().trim())
+  );
 
   return (
     <AdminLayout title="Create User">
@@ -176,24 +188,41 @@ const CreateUser = () => {
 
               {/* Department Checkboxes Group */}
               <div className="form-group full-width" style={{ marginTop: "10px" }}>
-                <label className="form-label" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <Building2 size={16} />
-                  <span>Assigned Department(s) — {form.role === "student" ? "Select One:" : "Select One or Multiple:"}</span>
-                </label>
+                <div className="dept-header-row">
+                  <label className="form-label dept-header-label">
+                    <Building2 size={16} />
+                    <span>Assigned Department(s)</span>
+                  </label>
+                  <div className="dept-search-box">
+                    <Search size={14} className="dept-search-icon" />
+                    <input
+                      type="text"
+                      className="dept-search-input"
+                      placeholder="Search department..."
+                      value={deptSearch}
+                      onChange={(e) => setDeptSearch(e.target.value)}
+                    />
+                  </div>
+                </div>
+
                 <div className="dept-checkbox-grid">
-                  {departments.map((dep) => {
-                    const checked = selectedDepartments.includes(dep._id);
-                    return (
-                      <label key={dep._id} className={`dept-checkbox-pill ${checked ? "selected" : ""}`}>
-                        <input
-                          type={form.role === "student" ? "radio" : "checkbox"}
-                          checked={checked}
-                          onChange={() => handleDepartmentToggle(dep._id)}
-                        />
-                        <span>{dep.name}</span>
-                      </label>
-                    );
-                  })}
+                  {filteredDepartments.length === 0 ? (
+                    <p className="dept-empty-text">No departments found</p>
+                  ) : (
+                    filteredDepartments.map((dep) => {
+                      const checked = selectedDepartments.includes(dep._id);
+                      return (
+                        <label key={dep._id} className={`dept-checkbox-pill ${checked ? "selected" : ""}`}>
+                          <input
+                            type={form.role === "student" ? "radio" : "checkbox"}
+                            checked={checked}
+                            onChange={() => handleDepartmentToggle(dep._id)}
+                          />
+                          <span>{dep.name}</span>
+                        </label>
+                      );
+                    })
+                  )}
                 </div>
               </div>
 

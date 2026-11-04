@@ -166,7 +166,7 @@ const StudentAssignments = () => {
                   <th>Status</th>
                   <th>Feedback Remarks</th>
                   <th>Submitted Date</th>
-                  <th className="text-right">Actions</th>
+                  <th className="text-center">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -266,8 +266,8 @@ const StudentAssignments = () => {
                           </div>
                         </td>
 
-                        <td className="text-right">
-                          <div className="table-actions-group">
+                        <td className="text-center">
+                          <div className="table-actions-group" style={{ justifyContent: "center" }}>
                             <button
                               className="btn btn-sm btn-primary"
                               disabled={!canSubmit}

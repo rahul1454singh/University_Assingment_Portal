@@ -1,0 +1,24 @@
+{
+  "short_name": "Univ Portal",
+  "name": "University Assignment Portal",
+  "description": "Digital assignment management portal for university students, professors, and administrators.",
+  "icons": [
+    {
+      "src": "/pwa-icon-192.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa-icon-512.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "display": "standalone",
+  "orientation": "portrait"
+}

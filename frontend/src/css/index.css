@@ -170,6 +170,11 @@ button, input, select, textarea {
   white-space: nowrap;
   outline: none;
   user-select: none;
+  text-decoration: none;
+}
+
+a.btn {
+  text-decoration: none;
 }
 
 .btn:disabled {
@@ -179,68 +184,84 @@ button, input, select, textarea {
   box-shadow: none !important;
 }
 
-.btn-primary {
+.btn-primary,
+a.btn-primary {
   background-color: var(--primary-600);
-  color: #ffffff;
+  color: #ffffff !important;
   border-color: var(--primary-600);
   box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
 }
-.btn-primary:hover:not(:disabled) {
+.btn-primary:hover:not(:disabled),
+a.btn-primary:hover {
   background-color: var(--primary-700);
+  color: #ffffff !important;
   border-color: var(--primary-700);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
   transform: translateY(-1px);
 }
-.btn-primary:active:not(:disabled) {
+.btn-primary:active:not(:disabled),
+a.btn-primary:active {
+  color: #ffffff !important;
   transform: translateY(0);
 }
 
-.btn-secondary {
+.btn-secondary,
+a.btn-secondary {
   background-color: var(--bg-surface);
   color: var(--text-primary);
   border-color: var(--border-color);
   box-shadow: var(--shadow-xs);
 }
-.btn-secondary:hover:not(:disabled) {
+.btn-secondary:hover:not(:disabled),
+a.btn-secondary:hover {
   background-color: var(--bg-subtle);
   border-color: var(--border-hover);
   color: var(--text-primary);
 }
 
-.btn-danger {
+.btn-danger,
+a.btn-danger {
   background-color: var(--danger-500);
-  color: #ffffff;
+  color: #ffffff !important;
   border-color: var(--danger-500);
   box-shadow: 0 1px 3px rgba(239, 68, 68, 0.2);
 }
-.btn-danger:hover:not(:disabled) {
+.btn-danger:hover:not(:disabled),
+a.btn-danger:hover {
   background-color: var(--danger-600);
+  color: #ffffff !important;
   border-color: var(--danger-600);
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
   transform: translateY(-1px);
 }
 
-.btn-success {
+.btn-success,
+a.btn-success {
   background-color: var(--success-600);
-  color: #ffffff;
+  color: #ffffff !important;
   border-color: var(--success-600);
   box-shadow: 0 1px 3px rgba(22, 163, 74, 0.2);
 }
-.btn-success:hover:not(:disabled) {
+.btn-success:hover:not(:disabled),
+a.btn-success:hover {
   background-color: var(--success-700);
+  color: #ffffff !important;
   border-color: var(--success-700);
   box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
   transform: translateY(-1px);
 }
 
-.btn-outline {
+.btn-outline,
+a.btn-outline {
   background-color: transparent;
   color: var(--text-primary);
   border-color: var(--border-color);
 }
-.btn-outline:hover:not(:disabled) {
+.btn-outline:hover:not(:disabled),
+a.btn-outline:hover {
   background-color: var(--bg-subtle);
   border-color: var(--border-hover);
+  color: var(--text-primary);
 }
 
 .btn-sm {

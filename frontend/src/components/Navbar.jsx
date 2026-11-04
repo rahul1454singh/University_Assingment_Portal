@@ -1,6 +1,7 @@
 import React from "react";
 import { Menu, X, Bell, User, GraduationCap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { getAvatarInitial, getGreetingName } from "../utils/nameHelper";
 import "../css/Navbar.css";
 
 const Navbar = ({
@@ -13,8 +14,8 @@ const Navbar = ({
 }) => {
   const navigate = useNavigate();
 
-  const firstName = userName ? userName.split(" ")[0] : "User";
-  const initialLetter = firstName.charAt(0).toUpperCase();
+  const greetingName = getGreetingName(userName);
+  const initialLetter = getAvatarInitial(userName, "U");
 
   const getRoleBadgeStyle = (roleName) => {
     const r = roleName ? roleName.toLowerCase() : "student";
@@ -57,7 +58,7 @@ const Navbar = ({
 
         <div className="user-greeting-wrapper">
           <span className="user-greeting">
-            Hello, <strong>{firstName}</strong>
+            Hello, <strong>{greetingName}</strong>
           </span>
         </div>
 

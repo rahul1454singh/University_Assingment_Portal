@@ -4,6 +4,7 @@ import api from "../services/api";
 import toast from "react-hot-toast";
 import ProfessorLayout from "./ProfessorLayout";
 import { formatDateTime } from "../utils/formatDate";
+import { formatProfessorName } from "../utils/nameHelper";
 import {
   PieChart as RePieChart,
   Pie,
@@ -137,7 +138,7 @@ const ProfessorDashboard = () => {
         {/* Welcome Banner */}
         <div className="prof-welcome-banner">
           <div className="banner-content">
-            <h1 className="banner-heading">Welcome, Prof. {dashboardData?.professorName || "Professor"}!</h1>
+            <h1 className="banner-heading">Welcome, {formatProfessorName(dashboardData?.professorName || "Professor")}!</h1>
             <p className="banner-subtext">
               Overview of student submission reviews, grading statistics, and class evaluations.
             </p>

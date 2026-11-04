@@ -74,7 +74,7 @@ router.get("/api/admin/complaints", verifyAdmin, async (req, res) => {
 // =======================
 router.get("/api/admin/complaints/unread-count", verifyAdmin, async (req, res) => {
   try {
-    const count = await Complaint.countDocuments({ isRead: false });
+    const count = await Complaint.countDocuments({ status: "Pending" });
     return res.json({
       success: true,
       unreadCount: count
@@ -113,9 +113,10 @@ router.put("/api/admin/complaints/mark-read", verifyAdmin, async (req, res) => {
 router.put("/api/admin/complaints/:id/status", verifyAdmin, async (req, res) => {
   try {
     const { status } = req.body;
+    const isRead = status === "Read" || status === "Resolved";
     const complaint = await Complaint.findByIdAndUpdate(
       req.params.id,
-      { status },
+      { status, isRead },
       { new: true }
     );
     return res.json({

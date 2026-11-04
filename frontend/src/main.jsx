@@ -75,3 +75,12 @@ createRoot(document.getElementById("root")).render(
     </React.StrictMode>
 
 );
+
+// Register PWA service worker for mobile installation
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js").catch((err) => {
+      console.warn("PWA Service Worker registration skipped/failed:", err);
+    });
+  });
+}

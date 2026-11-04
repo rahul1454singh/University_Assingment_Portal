@@ -66,6 +66,15 @@ const Layout = ({
     // If Admin, fetch unread complaints count
     if (role.toLowerCase() === "admin") {
       fetchUnreadComplaints();
+      const handleComplaintsUpdated = () => {
+        fetchUnreadComplaints();
+      };
+      window.addEventListener("complaintsUpdated", handleComplaintsUpdated);
+      const interval = setInterval(fetchUnreadComplaints, 6000);
+      return () => {
+        window.removeEventListener("complaintsUpdated", handleComplaintsUpdated);
+        clearInterval(interval);
+      };
     } else {
       fetchUnreadMessages();
       const interval = setInterval(fetchUnreadMessages, 5000);

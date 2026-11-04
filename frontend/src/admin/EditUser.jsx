@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
 import AdminLayout from "./AdminLayout";
 import toast from "react-hot-toast";
-import { User, ArrowLeft, Eye, EyeOff, Lock, Mail, Phone, Building2 } from "lucide-react";
+import { User, ArrowLeft, Eye, EyeOff, Lock, Mail, Phone, Building2, Search } from "lucide-react";
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import "../css/EditUser.css";
@@ -14,6 +14,7 @@ const EditUser = () => {
 
   const [departments, setDepartments] = useState([]);
   const [selectedDepartments, setSelectedDepartments] = useState([]);
+  const [deptSearch, setDeptSearch] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -139,6 +140,10 @@ const EditUser = () => {
     );
   }
 
+  const filteredDepartments = departments.filter((dep) =>
+    (dep.name || "").toLowerCase().includes(deptSearch.toLowerCase().trim())
+  );
+
   return (
     <AdminLayout title="Edit User">
       <div className="form-page-container animate-fade-in">
@@ -150,6 +155,13 @@ const EditUser = () => {
                 <h2 className="card-title">Edit User Account</h2>
               </div>
             </div>
+            <button
+              className="btn btn-sm btn-outline"
+              onClick={() => navigate("/admin/users")}
+            >
+              <ArrowLeft size={16} />
+              <span>Back to Directory</span>
+            </button>
           </div>
 
           <div className="card-body">
@@ -214,24 +226,41 @@ const EditUser = () => {
 
               {/* Department Checkboxes Group */}
               <div className="form-group full-width" style={{ marginTop: "10px" }}>
-                <label className="form-label" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <Building2 size={16} />
-                  <span>Assigned Department(s) — {form.role === "student" ? "Select One:" : "Select One or Multiple:"}</span>
-                </label>
+                <div className="dept-header-row">
+                  <label className="form-label dept-header-label">
+                    <Building2 size={16} />
+                    <span>Assigned Department(s)</span>
+                  </label>
+                  <div className="dept-search-box">
+                    <Search size={14} className="dept-search-icon" />
+                    <input
+                      type="text"
+                      className="dept-search-input"
+                      placeholder="Search department..."
+                      value={deptSearch}
+                      onChange={(e) => setDeptSearch(e.target.value)}
+                    />
+                  </div>
+                </div>
+
                 <div className="dept-checkbox-grid">
-                  {departments.map((dep) => {
-                    const checked = selectedDepartments.includes(dep._id);
-                    return (
-                      <label key={dep._id} className={`dept-checkbox-pill ${checked ? "selected" : ""}`}>
-                        <input
-                          type={form.role === "student" ? "radio" : "checkbox"}
-                          checked={checked}
-                          onChange={() => handleDepartmentToggle(dep._id)}
-                        />
-                        <span>{dep.name}</span>
-                      </label>
-                    );
-                  })}
+                  {filteredDepartments.length === 0 ? (
+                    <p className="dept-empty-text">No departments found</p>
+                  ) : (
+                    filteredDepartments.map((dep) => {
+                      const checked = selectedDepartments.includes(dep._id);
+                      return (
+                        <label key={dep._id} className={`dept-checkbox-pill ${checked ? "selected" : ""}`}>
+                          <input
+                            type={form.role === "student" ? "radio" : "checkbox"}
+                            checked={checked}
+                            onChange={() => handleDepartmentToggle(dep._id)}
+                          />
+                          <span>{dep.name}</span>
+                        </label>
+                      );
+                    })
+                  )}
                 </div>
               </div>
 

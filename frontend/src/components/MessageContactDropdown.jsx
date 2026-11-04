@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
+import { formatProfessorName } from "../utils/nameHelper";
 
 const MessageContactDropdown = ({ placeholder, options, selectedId, onSelect, prefix = "" }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,8 @@ const MessageContactDropdown = ({ placeholder, options, selectedId, onSelect, pr
         deptText = `${c.departments.slice(0, 2).join(", ")} +${c.departments.length - 2} more`;
       }
     }
-    return `${prefix}${c.name} — ${deptText}${
+    const formattedName = prefix ? `${prefix}${c.name}` : formatProfessorName(c.name);
+    return `${formattedName} — ${deptText}${
       c.unreadCount > 0 ? ` (${c.unreadCount} unread)` : ""
     }`;
   };

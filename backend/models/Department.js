@@ -12,11 +12,6 @@ const DepartmentSchema = new mongoose.Schema({
     required: true
   },
 
-  address: {
-    type: String,
-    required: true
-  },
-
   createdAt: {
     type: Date,
     default: Date.now

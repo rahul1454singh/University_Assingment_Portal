@@ -5,6 +5,7 @@ import StudentLayout from "./StudentLayout";
 import MessageContactDropdown from "../components/MessageContactDropdown";
 import DepartmentCell from "../components/DepartmentCell";
 import { Send, UserCheck, MessageSquare, Check, CheckCheck, User, Search } from "lucide-react";
+import { getAvatarInitial, formatProfessorName } from "../utils/nameHelper";
 import "../css/Messages.css";
 
 const StudentMessages = () => {
@@ -299,7 +300,6 @@ const StudentMessages = () => {
             options={contacts}
             selectedId={selectedContact?._id || ""}
             onSelect={handleDropdownChange}
-            prefix="Prof. "
           />
         </div>
 
@@ -321,7 +321,7 @@ const StudentMessages = () => {
               ) : (
                 contacts.map((c) => {
                   const isSel = selectedContact?._id === c._id;
-                  const firstLetter = c.name ? c.name.charAt(0).toUpperCase() : "P";
+                  const firstLetter = getAvatarInitial(c.name, "P");
                   return (
                     <div
                       key={c._id}
@@ -338,7 +338,7 @@ const StudentMessages = () => {
                       </div>
 
                       <div className="contact-info">
-                        <p className="contact-name">Prof. {c.name}</p>
+                        <p className="contact-name">{formatProfessorName(c.name)}</p>
                         <div className="contact-dept" onClick={(e) => e.stopPropagation()}>
                           <DepartmentCell 
                             departments={c.departments?.length > 0 ? c.departments : (c.departmentName ? [c.departmentName] : [])}
@@ -371,14 +371,14 @@ const StudentMessages = () => {
                         <img src={selectedContact.profileImage} alt={selectedContact.name} className="contact-avatar" />
                       ) : (
                         <div className="contact-avatar">
-                          {selectedContact.name ? selectedContact.name.charAt(0).toUpperCase() : "P"}
+                          {getAvatarInitial(selectedContact.name, "P")}
                         </div>
                       )}
                       {selectedContact.isOnline && <span className="online-dot"></span>}
                     </div>
 
                     <div>
-                      <h3 className="header-name">Prof. {selectedContact.name}</h3>
+                      <h3 className="header-name">{formatProfessorName(selectedContact.name)}</h3>
                       <p className={`header-status ${selectedContact.isOnline ? "online" : ""}`}>
                         {selectedContact.isOnline ? "● Online" : formatLastSeen(selectedContact.lastSeen)}
                       </p>
@@ -393,7 +393,7 @@ const StudentMessages = () => {
                   ) : messages.length === 0 ? (
                     <div className="empty-chat-state">
                       <MessageSquare size={36} className="empty-chat-icon" />
-                      <p>Start a direct conversation with Prof. {selectedContact.name}.</p>
+                      <p>Start a direct conversation with {formatProfessorName(selectedContact.name)}.</p>
                     </div>
                   ) : (
                     (() => {
@@ -433,7 +433,7 @@ const StudentMessages = () => {
 
                   {isTyping && (
                     <div className="typing-indicator-bar">
-                      Prof. {selectedContact.name} is typing...
+                      {formatProfessorName(selectedContact.name)} is typing...
                     </div>
                   )}
 

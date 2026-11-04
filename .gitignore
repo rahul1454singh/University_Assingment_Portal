@@ -25,3 +25,8 @@ yarn-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+
+
+# Documentation PDF (Local only, excluded from Git)
+*.pdf
+**/*.pdf

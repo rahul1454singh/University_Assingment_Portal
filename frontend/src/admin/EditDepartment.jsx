@@ -12,8 +12,7 @@ const EditDepartment = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    type: "",
-    address: ""
+    type: ""
   });
 
   const [loading, setLoading] = useState(true);
@@ -29,8 +28,7 @@ const EditDepartment = () => {
       if (res.data && res.data.department) {
         setFormData({
           name: res.data.department.name || "",
-          type: res.data.department.type || "",
-          address: res.data.department.address || ""
+          type: res.data.department.type || ""
         });
       }
     } catch (err) {
@@ -90,6 +88,13 @@ const EditDepartment = () => {
                 <h2 className="card-title">Edit Department</h2>
               </div>
             </div>
+            <button
+              className="btn btn-sm btn-outline"
+              onClick={() => navigate("/admin/departments")}
+            >
+              <ArrowLeft size={16} />
+              <span>Back to Directory</span>
+            </button>
           </div>
 
           <div className="card-body">
@@ -120,18 +125,6 @@ const EditDepartment = () => {
                   <option value="PG">PG (Postgraduate)</option>
                   <option value="Research">Research</option>
                 </select>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Location / Address</label>
-                <input
-                  type="text"
-                  name="address"
-                  className="form-input"
-                  value={formData.address}
-                  onChange={handleChange}
-                  required
-                />
               </div>
 
               <div className="form-actions-row">

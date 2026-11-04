@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import ProfessorLayout from "./ProfessorLayout";
 import { User, Mail, Phone, Building2, Camera, Eye, EyeOff, Lock } from "lucide-react";
 import DepartmentCell from "../components/DepartmentCell";
+import { getAvatarInitial, formatProfessorName } from "../utils/nameHelper";
 import "../css/StudentProfile.css";
 
 const ProfessorProfile = () => {
@@ -121,7 +122,7 @@ const ProfessorProfile = () => {
     );
   }
 
-  const firstLetter = profile.name ? profile.name.charAt(0).toUpperCase() : "P";
+  const firstLetter = getAvatarInitial(profile.name, "P");
 
   const depList = profile?.departments && profile.departments.length > 0
     ? profile.departments
@@ -176,7 +177,7 @@ const ProfessorProfile = () => {
               </div>
 
               <div className="profile-user-details">
-                <h2 className="profile-user-name">Prof. {profile.name}</h2>
+                <h2 className="profile-user-name">{formatProfessorName(profile.name)}</h2>
                 <span className="badge badge-success" style={{ marginTop: "4px" }}>
                   Professor
                 </span>

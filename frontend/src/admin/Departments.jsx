@@ -106,7 +106,6 @@ const Departments = () => {
               <tr>
                 <th>Department Name</th>
                 <th>Program Type</th>
-                <th>Address / Location</th>
                 <th>Users Enrolled</th>
                 <th className="text-right">Actions</th>
               </tr>
@@ -115,7 +114,7 @@ const Departments = () => {
             <tbody>
               {currentDepartments.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="empty-cell">
+                  <td colSpan="4" className="empty-cell">
                     <div className="empty-state">
                       <div className="empty-state-icon">
                         <Building2 size={24} />
@@ -134,7 +133,6 @@ const Departments = () => {
                     <td>
                       <span className="badge badge-info">{dep.type}</span>
                     </td>
-                    <td>{dep.address || "-"}</td>
                     <td>
                       <span className="badge badge-neutral">{dep.userCount || 0} users</span>
                     </td>
