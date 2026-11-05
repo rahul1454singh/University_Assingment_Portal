@@ -186,9 +186,10 @@
   display: none;
   position: fixed;
   inset: 0;
+  top: 64px;
   background-color: rgba(15, 23, 42, 0.5);
   backdrop-filter: blur(4px);
-  z-index: 750;
+  z-index: 1150;
 }
 
 /* Mobile Responsive Drawer */
@@ -196,12 +197,15 @@
   .app-sidebar {
     transform: translateX(-100%);
     width: 260px !important;
+    z-index: 1200;
   }
   .app-sidebar.mobile-open {
     transform: translateX(0);
+    z-index: 1200;
   }
   .sidebar-mobile-overlay {
     display: block;
+    z-index: 1150;
   }
   .sidebar-desktop-toggle {
     display: none;

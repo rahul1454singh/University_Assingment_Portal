@@ -300,6 +300,7 @@ const StudentMessages = () => {
             options={contacts}
             selectedId={selectedContact?._id || ""}
             onSelect={handleDropdownChange}
+            contactRole="professor"
           />
         </div>
 

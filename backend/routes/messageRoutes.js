@@ -94,7 +94,7 @@ router.get("/api/messages/contacts", verifyUserToken, async (req, res) => {
     const contactsRaw = await UserData.find(queryFilter)
       .populate("departments", "name")
       .populate("department", "name")
-      .select("_id name email role profileImage isOnline lastSeen departments department")
+      .select("_id name email role batch profileImage isOnline lastSeen departments department")
       .lean();
 
     // Format contacts with department names and calculate unread messages
@@ -120,6 +120,7 @@ router.get("/api/messages/contacts", verifyUserToken, async (req, res) => {
           name: c.name || "User",
           email: c.email,
           role: c.role,
+          batch: c.batch || "",
           profileImage: c.profileImage || "",
           isOnline: !!c.isOnline,
           lastSeen: c.lastSeen || c.updatedAt || new Date(),

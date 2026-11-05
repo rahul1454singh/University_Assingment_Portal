@@ -193,7 +193,7 @@ function ReviewAssignment() {
                 style={{ width: "100%", height: "460px", borderRadius: "var(--radius-md)", border: "1px solid var(--border-color)" }}
               />
 
-              <div className="pdf-actions-row" style={{ display: "flex", gap: "12px", marginTop: "12px" }}>
+              <div className="pdf-actions-row">
                 <a
                   href={assignment.file?.url}
                   target="_blank"

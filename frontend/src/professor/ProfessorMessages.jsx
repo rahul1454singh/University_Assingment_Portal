@@ -299,7 +299,7 @@ const ProfessorMessages = () => {
             options={contacts}
             selectedId={selectedContact?._id || ""}
             onSelect={handleDropdownChange}
-            prefix=""
+            contactRole="student"
           />
         </div>
 

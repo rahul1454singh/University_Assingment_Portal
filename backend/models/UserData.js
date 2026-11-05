@@ -50,6 +50,12 @@ const UserDataSchema = new mongoose.Schema({
     default: "student"
   },
 
+  batch: {
+    type: String,
+    trim: true,
+    default: ""
+  },
+
 
   // =========================
   // PROFILE IMAGE

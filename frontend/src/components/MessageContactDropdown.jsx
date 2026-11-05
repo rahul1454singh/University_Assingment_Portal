@@ -2,7 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { formatProfessorName } from "../utils/nameHelper";
 
-const MessageContactDropdown = ({ placeholder, options, selectedId, onSelect, prefix = "" }) => {
+const MessageContactDropdown = ({
+  placeholder,
+  options,
+  selectedId,
+  onSelect,
+  prefix = "",
+  contactRole
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -21,15 +28,37 @@ const MessageContactDropdown = ({ placeholder, options, selectedId, onSelect, pr
 
   const selectedContact = options.find((c) => c._id === selectedId);
 
-  const getOptionLabel = (c) => {
-    let deptText = c.departmentName || "General Department";
+  const checkIsStudent = (c) => {
+    if (contactRole === "student") return true;
+    if (contactRole === "professor") return false;
+    if (c && c.role && c.role.toLowerCase() === "student") return true;
+    if (placeholder && placeholder.toLowerCase().includes("student")) return true;
+    return false;
+  };
+
+  const getDeptText = (c) => {
+    if (!c) return "General Department";
     if (c.departments && c.departments.length > 0) {
       if (c.departments.length <= 2) {
-        deptText = c.departments.join(", ");
-      } else {
-        deptText = `${c.departments.slice(0, 2).join(", ")} +${c.departments.length - 2} more`;
+        return c.departments.join(", ");
       }
+      return `${c.departments.slice(0, 2).join(", ")} +${c.departments.length - 2} more`;
     }
+    return c.departmentName || "General Department";
+  };
+
+  const getOptionLabel = (c) => {
+    if (!c) return placeholder;
+    const deptText = getDeptText(c);
+    const isStudent = checkIsStudent(c);
+
+    if (isStudent) {
+      const batchOrRole = c.batch ? ` (Batch: ${c.batch})` : " (Student)";
+      return `${c.name || "Student"}${batchOrRole} — ${deptText}${
+        c.unreadCount > 0 ? ` (${c.unreadCount} unread)` : ""
+      }`;
+    }
+
     const formattedName = prefix ? `${prefix}${c.name}` : formatProfessorName(c.name);
     return `${formattedName} — ${deptText}${
       c.unreadCount > 0 ? ` (${c.unreadCount} unread)` : ""
@@ -64,6 +93,9 @@ const MessageContactDropdown = ({ placeholder, options, selectedId, onSelect, pr
           {options && options.length > 0 ? (
             options.map((c) => {
               const isSelected = selectedId === c._id;
+              const isStudent = checkIsStudent(c);
+              const deptText = getDeptText(c);
+
               return (
                 <div
                   key={c._id}
@@ -73,7 +105,38 @@ const MessageContactDropdown = ({ placeholder, options, selectedId, onSelect, pr
                     setIsOpen(false);
                   }}
                 >
-                  {getOptionLabel(c)}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", width: "100%" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap", minWidth: 0 }}>
+                      <span style={{ fontWeight: 600 }}>
+                        {isStudent ? (c.name || "Student") : (prefix ? `${prefix}${c.name}` : formatProfessorName(c.name))}
+                      </span>
+                      {isStudent && (
+                        <span
+                          style={{
+                            fontSize: "11px",
+                            fontWeight: 700,
+                            padding: "1px 6px",
+                            borderRadius: "4px",
+                            backgroundColor: "#eff6ff",
+                            color: "#1d4ed8",
+                            border: "1px solid #bfdbfe",
+                            display: "inline-flex",
+                            alignItems: "center"
+                          }}
+                        >
+                          {c.batch ? `Batch: ${c.batch}` : "Student"}
+                        </span>
+                      )}
+                      <span style={{ color: "var(--text-muted)", fontSize: "13px" }}>
+                        — {deptText}
+                      </span>
+                    </div>
+                    {c.unreadCount > 0 && (
+                      <span className="unread-badge" style={{ fontSize: "11px", padding: "2px 7px", flexShrink: 0 }}>
+                        {c.unreadCount} unread
+                      </span>
+                    )}
+                  </div>
                 </div>
               );
             })
